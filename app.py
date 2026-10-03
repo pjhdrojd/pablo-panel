@@ -287,15 +287,10 @@ def restart_xray():
 
 
 # =========================================================
-# Xray Stats API (بدون نیاز به grpc)
+# Xray Stats API
 # =========================================================
 
 def xray_query_stats():
-    """
-    با استفاده از دستور xray api، آمار همه کاربران رو میگیره.
-    خروجی: dict به شکل {user_name: total_bytes}
-    """
-
     stats = {}
 
     try:
@@ -305,7 +300,7 @@ def xray_query_stats():
                 "api",
                 "statsquery",
                 "--server=127.0.0.1:" + str(XRAY_API_PORT),
-                "-pattern", "user>>>"
+                "-pattern", "user..."
             ],
             capture_output=True,
             text=True,
@@ -322,7 +317,6 @@ def xray_query_stats():
             name = item.get("name", "")
             value = int(item.get("value", 0))
 
-            # name format: user>>>USER_EMAIL>>>traffic>>>uplink
             parts = name.split(">>>")
             if len(parts) >= 4 and parts[0] == "user":
                 user_email = parts[1]
@@ -341,9 +335,6 @@ def xray_query_stats():
 
 
 def xray_reset_user_stats(user_email):
-    """
-    صفر کردن آمار یک کاربر خاص توی Xray.
-    """
     try:
         for direction in ["uplink", "downlink"]:
             subprocess.run(
@@ -366,16 +357,10 @@ def xray_reset_user_stats(user_email):
 # تایمر پس‌زمینه (جمع‌آوری آمار + چک حجم)
 # =========================================================
 
-# آمار قبلی برای تشخیص تغییرات (آنلاین بودن)
 PREVIOUS_STATS = {}
 
 
 def stats_collector():
-    """
-    هر 30 ثانیه آمار رو میخونه و توی دیتابیس ذخیره میکنه.
-    اگه کاربری از حجمش رد شد، غیرفعالش میکنه.
-    """
-
     global PREVIOUS_STATS
 
     while True:
@@ -394,23 +379,19 @@ def stats_collector():
 
             for user_email, total_bytes in stats.items():
 
-                # آپدیت ترافیک توی دیتابیس
                 c.execute(
                     "UPDATE users SET used_bytes = used_bytes + ? WHERE name = ?",
                     (total_bytes, user_email)
                 )
 
-                # ریست آمار Xray بعد از ذخیره
                 xray_reset_user_stats(user_email)
 
-                # چک آنلاین بودن
                 prev = PREVIOUS_STATS.get(user_email, 0)
                 if total_bytes > 0 or total_bytes != prev:
                     ONLINE_USERS[user_email] = time.time()
 
                 PREVIOUS_STATS[user_email] = total_bytes
 
-                # چک حجم
                 c.execute(
                     "SELECT id, quota_gb, used_bytes, enabled FROM users WHERE name = ?",
                     (user_email,)
@@ -543,7 +524,7 @@ http {{
 
 
 # =========================================================
-# ساخت کانفیگ‌های VLESS
+# ساخت کانفیگ‌های ۳ گانه پرسرعت
 # =========================================================
 
 def make_all_vless_configs(user, host):
@@ -564,13 +545,14 @@ def make_all_vless_configs(user, host):
         f"{used_gb:.2f} GB/"
         f"{quota_gb:.2f} GB "
         f"(باقی {remaining_gb:.2f} GB) | "
-        f"{days_left}د 0س"
+        f"{days_left}د"
     )
 
     encoded_remark = urllib.parse.quote(remark_text)
 
     configs = []
 
+    # کانفیگ پرسرعت ۱ (TLS + Chrome FP)
     c1 = (
         f"vless://{u_uuid}@{host}:443"
         f"?path=%2Fws%2F{u_uuid}"
@@ -583,15 +565,16 @@ def make_all_vless_configs(user, host):
         f"&type=ws"
         f"&allowInsecure=0"
         f"&sni={host}"
-        f"#{encoded_remark}"
+        f"#{encoded_remark}%20%5B1%5D"
     )
     configs.append({
-        "title": "🚀 کانفیگ اصلی (VodiWalker TLS)",
-        "desc": "پایدارترین اتصال برای تمامی اپراتورها",
-        "tag": "VodiWalker TLS",
+        "title": "🚀 کانفـیگ پرسرعـت¹",
+        "desc": "اتصال فوق‌العاده پایدار و بدون قطعی (پیشنهادی)",
+        "tag": "HighSpeed 1",
         "config": c1
     })
 
+    # کانفیگ پرسرعت ۲ (TLS + EarlyData پینگ پایین)
     c2 = (
         f"vless://{u_uuid}@{host}:443"
         f"?path=%2Fws%2F{u_uuid}%3Fed%3D2560"
@@ -604,15 +587,16 @@ def make_all_vless_configs(user, host):
         f"&type=ws"
         f"&allowInsecure=0"
         f"&sni={host}"
-        f"#{encoded_remark}%20%5BAntiFilter%5D"
+        f"#{encoded_remark}%20%5B2%5D"
     )
     configs.append({
-        "title": "⚡ کانفیگ ضد فیلتر (EarlyData)",
-        "desc": "مخصوص همراه اول، ایرانسل و رایتل",
-        "tag": "AntiFilter",
+        "title": "⚡ کانفـیگ پرسرعـت²",
+        "desc": "بهینه‌شده با پینگ بسیار پایین مخصوص بازی و وب‌گردی",
+        "tag": "HighSpeed 2",
         "config": c2
     })
 
+    # کانفیگ پرسرعت ۳ (TLS + Firefox Multi-ALPN)
     c3 = (
         f"vless://{u_uuid}@{host}:443"
         f"?path=%2Fws%2F{u_uuid}"
@@ -625,50 +609,13 @@ def make_all_vless_configs(user, host):
         f"&type=ws"
         f"&allowInsecure=0"
         f"&sni={host}"
-        f"#{encoded_remark}%20%5BFirefox%5D"
+        f"#{encoded_remark}%20%5B3%5D"
     )
     configs.append({
-        "title": "🛡️ کانفیگ مالتی ALPN (Firefox)",
-        "desc": "مخصوص اینترنت خانگی، مخابرات و وای‌فای",
-        "tag": "Firefox",
+        "title": "🛡️ کانفـیگ پرسرعـت³",
+        "desc": "فرکانس چندگانه و ضد فیلتر مناسب دانلود‌های سنگین",
+        "tag": "HighSpeed 3",
         "config": c3
-    })
-
-    c4 = (
-        f"vless://{u_uuid}@{host}:443"
-        f"?path=%2Fws%2F{u_uuid}"
-        f"&security=tls"
-        f"&alpn=http%2F1.1"
-        f"&encryption=none"
-        f"&insecure=0"
-        f"&host={host}"
-        f"&fp=safari"
-        f"&type=ws"
-        f"&allowInsecure=0"
-        f"&sni={host}"
-        f"#{encoded_remark}%20%5BSafari-iOS%5D"
-    )
-    configs.append({
-        "title": "📱 کانفیگ سافاری (iOS / V2Box)",
-        "desc": "بهینه‌شده برای گوشی‌های آیفون",
-        "tag": "Safari iOS",
-        "config": c4
-    })
-
-    c5 = (
-        f"vless://{u_uuid}@{host}:80"
-        f"?path=%2Fws%2F{u_uuid}"
-        f"&security=none"
-        f"&encryption=none"
-        f"&host={host}"
-        f"&type=ws"
-        f"#{encoded_remark}%20%5BHTTP-80%5D"
-    )
-    configs.append({
-        "title": "🌐 کانفیگ بدون TLS (پورت 80)",
-        "desc": "برای زمان اختلال شدید پروتکل TLS",
-        "tag": "HTTP-80",
-        "config": c5
     })
 
     return configs
