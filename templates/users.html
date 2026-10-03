@@ -74,8 +74,8 @@ button{cursor:pointer;}
 .card{background:linear-gradient(145deg,rgba(9,28,48,.90),rgba(3,14,27,.92));border:1px solid var(--line);border-radius:17px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
 .card:after{content:"";position:absolute;top:0;left:15%;right:15%;height:1px;background:linear-gradient(90deg,transparent,#00c8ff,transparent);opacity:.5;}
 
-/* STATS - 5 ستونه */
-.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:13px;margin-bottom:15px;}
+/* STATS - 4 ستونه مرتب */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:15px;}
 .stat{padding:18px;min-width:0;}
 .stat-top{display:flex;justify-content:space-between;align-items:center;gap:10px;}
 .stat-label{color:#7690a9;font-size:10px;font-weight:600;}
@@ -83,25 +83,31 @@ button{cursor:pointer;}
 .stat-icon.green{background:rgba(0,232,154,.11);border-color:rgba(0,232,154,.22);color:#00e89a;}
 .stat-icon.red{background:rgba(255,69,103,.11);border-color:rgba(255,69,103,.22);color:#ff5877;}
 .stat-icon.orange{background:rgba(255,165,0,.11);border-color:rgba(255,165,0,.22);color:#ffa500;}
-.stat-icon.live{background:rgba(0,232,154,.11);border-color:rgba(0,232,154,.3);color:#00e89a;position:relative;}
-.stat-icon.live:before{content:"";position:absolute;top:4px;right:4px;width:7px;height:7px;background:#00e89a;border-radius:50%;box-shadow:0 0 8px #00e89a;animation:pulse 1.5s infinite;}
-@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
 .stat-value{font-size:25px;font-weight:900;margin-top:12px;}
 .stat-change{color:#00db9a;font-size:9px;margin-top:5px;}
 
-/* ONLINE CARD */
-.online-card{padding:18px;margin-bottom:15px;}
-.online-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
-.online-head h2{font-size:14px;font-weight:800;display:flex;align-items:center;gap:8px;}
-.live-dot{width:9px;height:9px;background:#00e89a;border-radius:50%;box-shadow:0 0 10px #00e89a;animation:pulse 1.5s infinite;}
-.online-head span{color:#506d88;font-size:9px;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.85);}}
+
+/* ONLINE CARD - کارت جدا و شیک */
+.online-card{padding:22px;margin-bottom:15px;position:relative;}
+.online-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;}
+.online-head-left{display:flex;align-items:center;gap:12px;}
+.online-head h2{font-size:14px;font-weight:800;display:flex;align-items:center;gap:9px;}
+.live-dot{width:9px;height:9px;background:#00e89a;border-radius:50%;box-shadow:0 0 10px #00e89a;animation:pulse 1.5s infinite;flex-shrink:0;}
+.online-count-badge{background:linear-gradient(135deg,rgba(0,232,154,.15),rgba(0,217,255,.1));border:1px solid rgba(0,232,154,.3);padding:5px 12px;border-radius:20px;font-size:11px;font-weight:900;color:#00e89a;display:inline-flex;align-items:center;gap:6px;}
+.online-count-badge .num{font-size:14px;}
+.online-head-right{color:#506d88;font-size:9px;font-weight:600;letter-spacing:.5px;}
+
 .online-list{display:flex;flex-wrap:wrap;gap:8px;}
-.online-user{background:rgba(0,232,154,.06);border:1px solid rgba(0,232,154,.2);border-radius:9px;padding:8px 12px;display:flex;align-items:center;gap:8px;font-size:10px;color:#c1e5d2;}
-.online-user .mini-dot{width:7px;height:7px;background:#00e89a;border-radius:50%;box-shadow:0 0 6px #00e89a;}
+.online-user{background:rgba(0,232,154,.06);border:1px solid rgba(0,232,154,.2);border-radius:10px;padding:9px 13px;display:flex;align-items:center;gap:8px;font-size:10px;color:#c1e5d2;transition:.2s;}
+.online-user:hover{background:rgba(0,232,154,.1);border-color:rgba(0,232,154,.4);transform:translateY(-1px);}
+.online-user .mini-dot{width:7px;height:7px;background:#00e89a;border-radius:50%;box-shadow:0 0 6px #00e89a;flex-shrink:0;animation:pulse 1.5s infinite;}
 .online-user b{color:#fff;font-weight:800;}
-.online-user small{color:#5a8575;font-size:8px;margin-left:5px;}
-.rtl .online-user small{margin-left:0;margin-right:5px;}
-.online-empty{color:#4e6b84;font-size:10px;text-align:center;padding:12px;}
+.online-user .sep{color:#4e6b84;}
+.online-user .usage{color:#8ba3ba;}
+.online-user small{color:#5a8575;font-size:8px;background:rgba(0,232,154,.1);padding:2px 7px;border-radius:5px;font-weight:700;}
+.online-empty{color:#4e6b84;font-size:11px;text-align:center;padding:20px;width:100%;}
+.online-empty-icon{font-size:28px;opacity:.3;margin-bottom:8px;}
 
 /* TOOLBAR */
 .toolbar{padding:16px 18px;margin-bottom:15px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
@@ -197,7 +203,6 @@ button{cursor:pointer;}
 .toast.error{border-color:#ff4567;box-shadow:0 0 25px rgba(255,69,103,.25);}
 .toast.success{border-color:#00e89a;box-shadow:0 0 25px rgba(0,232,154,.25);}
 
-@media(max-width:1100px){.stats{grid-template-columns:repeat(3,1fr);}}
 @media(max-width:980px){.user-row{grid-template-columns:1fr 1fr;gap:12px;}.user-days{text-align:left;}.actions{grid-column:1 / -1;justify-content:stretch;}.actions .btn{flex:1;}}
 @media(max-width:900px){
     .sidebar{transform:translateX(-105%);transition:.3s;box-shadow:10px 0 40px rgba(0,0,0,.6);}
@@ -223,6 +228,8 @@ button{cursor:pointer;}
     .language-btn{min-width:58px;padding:0 8px;font-size:9px;}
     .search-box{max-width:100%;}
     .toolbar{padding:12px;}
+    .online-card{padding:16px;}
+    .online-user{font-size:9px;padding:7px 10px;}
 }
 </style>
 </head>
@@ -309,24 +316,15 @@ button{cursor:pointer;}
         </div>
     </div>
 
-    <!-- STATS - 5 CARDS -->
+    <!-- STATS - 4 کارت مرتب -->
     <section class="stats">
         <div class="card stat">
             <div class="stat-top">
-                <span class="stat-label" data-i18n="totalUsers">TOTAL</span>
+                <span class="stat-label" data-i18n="totalUsers">TOTAL USERS</span>
                 <span class="stat-icon">ALL</span>
             </div>
             <div class="stat-value">{{ total_users }}</div>
             <div class="stat-change" data-i18n="allAccounts">ALL ACCOUNTS</div>
-        </div>
-
-        <div class="card stat">
-            <div class="stat-top">
-                <span class="stat-label" data-i18n="onlineNow">ONLINE NOW</span>
-                <span class="stat-icon live">●</span>
-            </div>
-            <div class="stat-value" id="onlineCount" style="color:#00e89a;">{{ online_users }}</div>
-            <div class="stat-change" data-i18n="liveTraffic">LIVE TRAFFIC</div>
         </div>
 
         <div class="card stat">
@@ -349,7 +347,7 @@ button{cursor:pointer;}
 
         <div class="card stat">
             <div class="stat-top">
-                <span class="stat-label" data-i18n="usedTraffic">USED</span>
+                <span class="stat-label" data-i18n="usedTraffic">USED TRAFFIC</span>
                 <span class="stat-icon orange">GB</span>
             </div>
             <div class="stat-value" style="color:#ffa500;">
@@ -363,14 +361,24 @@ button{cursor:pointer;}
     <!-- ONLINE USERS LIVE PANEL -->
     <section class="card online-card">
         <div class="online-head">
-            <h2>
-                <span class="live-dot"></span>
-                <span data-i18n="onlineUsersTitle">Online Users (Live)</span>
-            </h2>
-            <span data-i18n="autoRefresh">AUTO-REFRESH 15s</span>
+            <div class="online-head-left">
+                <h2>
+                    <span class="live-dot"></span>
+                    <span data-i18n="onlineUsersTitle">Online Users</span>
+                </h2>
+                <span class="online-count-badge">
+                    <span class="num" id="onlineCount">{{ online_users }}</span>
+                    <span data-i18n="onlineLive">LIVE</span>
+                </span>
+            </div>
+            <div class="online-head-right" data-i18n="autoRefresh">AUTO-REFRESH 15s</div>
         </div>
+
         <div id="onlineList" class="online-list">
-            <div class="online-empty" data-i18n="loading">Loading...</div>
+            <div class="online-empty">
+                <div class="online-empty-icon">⏳</div>
+                <div data-i18n="loading">Loading...</div>
+            </div>
         </div>
     </section>
 
@@ -616,9 +624,9 @@ const translations = {
         community:"COMMUNITY",joinTelegram:"Join Telegram",supportDeveloper:"Support Developer",
         designedDeveloped:"DESIGNED & DEVELOPED BY",logout:"Logout",usersManagement:"Users Management",
         usersSub:"Manage all your VPN users and configurations",administrator:"Administrator",online:"ONLINE",
-        totalUsers:"TOTAL",allAccounts:"ALL ACCOUNTS",activeUsers:"ACTIVE",currentlyActive:"CURRENTLY ACTIVE",
-        disabledUsers:"DISABLED",turnedOff:"TURNED OFF",usedTraffic:"USED",totalConsumption:"TOTAL CONSUMPTION",
-        onlineNow:"ONLINE NOW",liveTraffic:"LIVE TRAFFIC",onlineUsersTitle:"Online Users (Live)",autoRefresh:"AUTO-REFRESH 15s",
+        totalUsers:"TOTAL USERS",allAccounts:"ALL ACCOUNTS",activeUsers:"ACTIVE",currentlyActive:"CURRENTLY ACTIVE",
+        disabledUsers:"DISABLED",turnedOff:"TURNED OFF",usedTraffic:"USED TRAFFIC",totalConsumption:"TOTAL CONSUMPTION",
+        onlineUsersTitle:"Online Users",onlineLive:"LIVE",autoRefresh:"AUTO-REFRESH 15s",
         loading:"Loading...",noOnline:"No users online right now",secondsAgo:"s ago",
         searchPlaceholder:"🔍 Search by username...",filterAll:"ALL",filterActive:"ACTIVE",filterDisabled:"DISABLED",filterExpired:"EXPIRED",
         createUser:"Create User",daysLeft:"days left",active:"ACTIVE",disabled:"DISABLED",expired:"EXPIRED",
@@ -637,9 +645,9 @@ const translations = {
         community:"ارتباطات",joinTelegram:"عضویت در تلگرام",supportDeveloper:"پشتیبانی سازنده",
         designedDeveloped:"طراحی و توسعه توسط",logout:"خروج",usersManagement:"مدیریت کاربران",
         usersSub:"مدیریت کامل اکانت‌ها و کانفیگ‌های VPN",administrator:"مدیر",online:"آنلاین",
-        totalUsers:"کل",allAccounts:"تمام حساب‌ها",activeUsers:"فعال",currentlyActive:"در حال حاضر فعال",
-        disabledUsers:"غیرفعال",turnedOff:"خاموش شده",usedTraffic:"مصرفی",totalConsumption:"مجموع مصرف",
-        onlineNow:"آنلاین",liveTraffic:"ترافیک زنده",onlineUsersTitle:"کاربران آنلاین (زنده)",autoRefresh:"آپدیت خودکار هر ۱۵ ثانیه",
+        totalUsers:"کل کاربران",allAccounts:"تمام حساب‌ها",activeUsers:"فعال",currentlyActive:"در حال حاضر فعال",
+        disabledUsers:"غیرفعال",turnedOff:"خاموش شده",usedTraffic:"ترافیک مصرفی",totalConsumption:"مجموع مصرف",
+        onlineUsersTitle:"کاربران آنلاین",onlineLive:"زنده",autoRefresh:"آپدیت خودکار هر ۱۵ ثانیه",
         loading:"در حال بارگذاری...",noOnline:"کاربری آنلاین نیست",secondsAgo:"ثانیه پیش",
         searchPlaceholder:"🔍 جستجو بر اساس نام کاربر...",filterAll:"همه",filterActive:"فعال",filterDisabled:"غیرفعال",filterExpired:"منقضی",
         createUser:"ساخت کاربر",daysLeft:"روز باقی",active:"فعال",disabled:"غیرفعال",expired:"منقضی",
@@ -740,7 +748,6 @@ function filterUsers(){
     }
 }
 
-/* ONLINE USERS - LIVE */
 async function refreshOnlineUsers(){
     try{
         const res = await fetch('/api/online_users');
@@ -754,19 +761,19 @@ async function refreshOnlineUsers(){
         const list = document.getElementById('onlineList');
 
         if(data.count === 0){
-            list.innerHTML = `<div class="online-empty">${lang.noOnline}</div>`;
+            list.innerHTML = `<div class="online-empty"><div class="online-empty-icon">💤</div><div>${lang.noOnline}</div></div>`;
         } else {
             list.innerHTML = data.users.map(u=>`
                 <div class="online-user">
                     <span class="mini-dot"></span>
                     <b>${escapeHtml(u.name)}</b>
-                    <span>${u.used_gb} / ${u.quota_gb} GB</span>
+                    <span class="sep">·</span>
+                    <span class="usage">${u.used_gb} / ${u.quota_gb} GB</span>
                     <small>${u.seconds_ago}${lang.secondsAgo}</small>
                 </div>
             `).join('');
         }
 
-        // Update avatar online indicator
         const onlineNames = data.users.map(u=>u.name);
         document.querySelectorAll('.user-avatar[data-user]').forEach(av=>{
             if(onlineNames.includes(av.dataset.user)){
@@ -781,7 +788,6 @@ async function refreshOnlineUsers(){
     }
 }
 
-/* ADD USER */
 async function submitAddUser(e){
     e.preventDefault();
     const name = document.getElementById('add_name').value.trim();
@@ -815,7 +821,6 @@ async function submitAddUser(e){
     }
 }
 
-/* EDIT USER */
 function openEdit(id, name, quota, days){
     document.getElementById('edit_id').value = id;
     document.getElementById('edit_name').value = name;
