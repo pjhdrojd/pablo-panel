@@ -12,7 +12,7 @@
 :root{
     --bg:#020712;--panel:#071525;--line:rgba(0,174,255,.18);
     --blue:#009dff;--cyan:#00d9ff;--text:#f3f8ff;--muted:#7890a8;
-    --green:#00e89a;--red:#ff4567;--orange:#ffa500;
+    --green:#00e89a;--red:#ff4567;--orange:#ffa500;--purple:#a855f7;--gold:#ffd700;
     --shadow:0 0 35px rgba(0,157,255,.10);
 }
 
@@ -74,7 +74,6 @@ button{cursor:pointer;}
 .card{background:linear-gradient(145deg,rgba(9,28,48,.90),rgba(3,14,27,.92));border:1px solid var(--line);border-radius:17px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
 .card:after{content:"";position:absolute;top:0;left:15%;right:15%;height:1px;background:linear-gradient(90deg,transparent,#00c8ff,transparent);opacity:.5;}
 
-/* STATS - 4 ستونه مرتب */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:15px;}
 .stat{padding:18px;min-width:0;}
 .stat-top{display:flex;justify-content:space-between;align-items:center;gap:10px;}
@@ -88,7 +87,6 @@ button{cursor:pointer;}
 
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.85);}}
 
-/* ONLINE CARD - کارت جدا و شیک */
 .online-card{padding:22px;margin-bottom:15px;position:relative;}
 .online-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;}
 .online-head-left{display:flex;align-items:center;gap:12px;}
@@ -97,7 +95,6 @@ button{cursor:pointer;}
 .online-count-badge{background:linear-gradient(135deg,rgba(0,232,154,.15),rgba(0,217,255,.1));border:1px solid rgba(0,232,154,.3);padding:5px 12px;border-radius:20px;font-size:11px;font-weight:900;color:#00e89a;display:inline-flex;align-items:center;gap:6px;}
 .online-count-badge .num{font-size:14px;}
 .online-head-right{color:#506d88;font-size:9px;font-weight:600;letter-spacing:.5px;}
-
 .online-list{display:flex;flex-wrap:wrap;gap:8px;}
 .online-user{background:rgba(0,232,154,.06);border:1px solid rgba(0,232,154,.2);border-radius:10px;padding:9px 13px;display:flex;align-items:center;gap:8px;font-size:10px;color:#c1e5d2;transition:.2s;}
 .online-user:hover{background:rgba(0,232,154,.1);border-color:rgba(0,232,154,.4);transform:translateY(-1px);}
@@ -109,7 +106,6 @@ button{cursor:pointer;}
 .online-empty{color:#4e6b84;font-size:11px;text-align:center;padding:20px;width:100%;}
 .online-empty-icon{font-size:28px;opacity:.3;margin-bottom:8px;}
 
-/* TOOLBAR */
 .toolbar{padding:16px 18px;margin-bottom:15px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
 .toolbar-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex:1;min-width:0;}
 .search-box{flex:1;min-width:180px;max-width:280px;background:#020b16;color:#fff;border:1px solid #17344e;border-radius:10px;padding:10px 12px;outline:none;font-size:11px;}
@@ -169,20 +165,62 @@ button{cursor:pointer;}
 
 .overlay{position:fixed;inset:0;background:rgba(0,4,10,.82);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:15px;z-index:500;}
 .overlay.show{display:flex;}
-.modal{width:100%;max-width:520px;max-height:90vh;overflow:auto;background:#061322;border:1px solid rgba(0,157,255,.3);border-radius:20px;box-shadow:0 0 50px rgba(0,157,255,.15),0 25px 70px rgba(0,0,0,.7);padding:20px;}
+.modal{width:100%;max-width:520px;max-height:92vh;overflow:auto;background:#061322;border:1px solid rgba(0,157,255,.3);border-radius:20px;box-shadow:0 0 50px rgba(0,157,255,.15),0 25px 70px rgba(0,0,0,.7);padding:20px;}
+.modal.wide{max-width:600px;}
 .modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;padding-bottom:13px;border-bottom:1px solid rgba(0,157,255,.1);}
 .modal-head h3{font-size:14px;}
+.modal-head .modal-sub{color:#5a7a94;font-size:9px;margin-top:3px;}
 .close{width:30px;height:30px;border:1px solid #18344c;background:#091a2c;color:#829bb1;border-radius:8px;font-size:16px;}
 
-.form-group{margin-bottom:13px;}
-.form-group label{display:block;color:#7e98b0;font-size:9px;margin-bottom:6px;font-weight:700;letter-spacing:.5px;}
+.form-group{margin-bottom:14px;}
+.form-group label{display:flex;justify-content:space-between;align-items:center;color:#7e98b0;font-size:9px;margin-bottom:6px;font-weight:700;letter-spacing:.5px;}
+.form-group label .label-hint{color:#4e6b84;font-size:8px;font-weight:600;letter-spacing:0;}
 .input{width:100%;background:#020b16;color:#fff;border:1px solid #17344e;border-radius:10px;padding:11px 12px;outline:none;font-size:11px;}
 .input:focus{border-color:#00aaff;box-shadow:0 0 12px rgba(0,157,255,.12);}
+
+.input-with-btn{display:flex;gap:5px;}
+.input-with-btn .input{flex:1;min-width:0;}
+.input-icon-btn{width:42px;flex-shrink:0;background:linear-gradient(135deg,rgba(0,157,255,.15),rgba(0,217,255,.08));border:1px solid rgba(0,157,255,.25);color:#00c8ff;border-radius:10px;font-size:14px;display:flex;align-items:center;justify-content:center;transition:.2s;}
+.input-icon-btn:hover{background:linear-gradient(135deg,rgba(0,157,255,.25),rgba(0,217,255,.15));border-color:rgba(0,217,255,.5);box-shadow:0 0 10px rgba(0,157,255,.3);}
+
+/* QUICK PLANS */
+.plans-title{font-size:9px;font-weight:800;color:#7e98b0;letter-spacing:.5px;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.plans-title .star{color:#ffd700;}
+.quick-plans{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:16px;}
+.plan-card{background:rgba(0,157,255,.05);border:1px solid rgba(0,157,255,.12);border-radius:10px;padding:9px 5px;text-align:center;cursor:pointer;transition:.2s;position:relative;overflow:hidden;}
+.plan-card:hover{background:rgba(0,157,255,.1);transform:translateY(-2px);}
+.plan-card.active{background:linear-gradient(135deg,rgba(0,157,255,.2),rgba(0,217,255,.1));border-color:rgba(0,217,255,.4);box-shadow:0 0 15px rgba(0,157,255,.25);}
+.plan-icon{font-size:16px;margin-bottom:3px;}
+.plan-name{font-size:8px;font-weight:800;color:#fff;letter-spacing:.3px;}
+.plan-info{font-size:7px;color:#6a8aa5;margin-top:2px;font-weight:600;}
+.plan-card.bronze .plan-name{color:#cd7f32;}
+.plan-card.silver .plan-name{color:#c0c0c0;}
+.plan-card.gold .plan-name{color:#ffd700;}
+.plan-card.diamond .plan-name{color:#00d9ff;}
+.plan-card.vip .plan-name{color:#a855f7;}
+
+/* SLIDER */
+.slider-row{display:flex;align-items:center;gap:10px;margin-top:7px;}
+.slider-input{flex:1;height:5px;background:#0b1a2b;border-radius:3px;outline:none;-webkit-appearance:none;appearance:none;cursor:pointer;}
+.slider-input::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;background:linear-gradient(135deg,#007cff,#00bfff);border-radius:50%;cursor:pointer;box-shadow:0 0 8px rgba(0,157,255,.5);}
+.slider-input::-moz-range-thumb{width:16px;height:16px;background:linear-gradient(135deg,#007cff,#00bfff);border-radius:50%;cursor:pointer;border:0;box-shadow:0 0 8px rgba(0,157,255,.5);}
+.slider-value{min-width:50px;text-align:center;background:#020b16;border:1px solid #17344e;border-radius:7px;padding:5px 8px;font-size:10px;font-weight:800;color:#00c8ff;}
 
 .presets{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap;}
 .preset{flex:1;min-width:50px;padding:7px 8px;background:rgba(0,157,255,.06);border:1px solid rgba(0,157,255,.15);border-radius:8px;color:#8bacc5;font-size:9px;font-weight:700;transition:.2s;}
 .preset:hover{background:rgba(0,157,255,.15);color:#fff;}
 .preset.active{background:linear-gradient(135deg,#007cff,#00bfff);color:#fff;border-color:transparent;}
+.preset.special{background:rgba(168,85,247,.1);border-color:rgba(168,85,247,.3);color:#c084fc;}
+.preset.special:hover{background:rgba(168,85,247,.2);}
+
+/* SUMMARY CARD */
+.summary{margin-top:16px;background:linear-gradient(135deg,rgba(0,157,255,.08),rgba(0,232,154,.04));border:1px solid rgba(0,217,255,.2);border-radius:12px;padding:14px;}
+.summary-title{font-size:9px;font-weight:800;color:#00c8ff;letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.summary-item{background:rgba(0,0,0,.25);border:1px solid rgba(0,157,255,.08);border-radius:9px;padding:9px 10px;}
+.summary-item .lbl{font-size:8px;color:#5a7a94;font-weight:700;letter-spacing:.3px;}
+.summary-item .val{font-size:12px;color:#fff;font-weight:800;margin-top:3px;display:flex;align-items:center;gap:4px;}
+.summary-item .val small{font-size:8px;color:#8bacc5;font-weight:600;}
 
 .config-box{background:#020b16;border:1px solid #12304a;border-radius:12px;padding:11px;margin-bottom:8px;}
 .config-top{display:flex;justify-content:space-between;gap:10px;align-items:center;}
@@ -218,7 +256,11 @@ button{cursor:pointer;}
     .stat{padding:14px;}
     .stat-value{font-size:21px;}
 }
-@media(max-width:600px){.user-row{grid-template-columns:1fr;}.user-days{text-align:left;}}
+@media(max-width:600px){
+    .user-row{grid-template-columns:1fr;}
+    .user-days{text-align:left;}
+    .quick-plans{grid-template-columns:repeat(3,1fr);}
+}
 @media(max-width:480px){
     .main{padding:10px;}
     .stats{grid-template-columns:1fr 1fr;}
@@ -230,6 +272,8 @@ button{cursor:pointer;}
     .toolbar{padding:12px;}
     .online-card{padding:16px;}
     .online-user{font-size:9px;padding:7px 10px;}
+    .quick-plans{grid-template-columns:repeat(2,1fr);}
+    .summary-grid{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -316,7 +360,6 @@ button{cursor:pointer;}
         </div>
     </div>
 
-    <!-- STATS - 4 کارت مرتب -->
     <section class="stats">
         <div class="card stat">
             <div class="stat-top">
@@ -358,7 +401,6 @@ button{cursor:pointer;}
         </div>
     </section>
 
-    <!-- ONLINE USERS LIVE PANEL -->
     <section class="card online-card">
         <div class="online-head">
             <div class="online-head-left">
@@ -382,7 +424,6 @@ button{cursor:pointer;}
         </div>
     </section>
 
-    <!-- TOOLBAR -->
     <section class="card toolbar">
         <div class="toolbar-left">
             <input type="text" id="searchInput" oninput="filterUsers()" placeholder="🔍 Search by username..." class="search-box" data-i18n-ph="searchPlaceholder">
@@ -395,13 +436,12 @@ button{cursor:pointer;}
             </div>
         </div>
 
-        <button class="btn-add" onclick="openModal('addModal')">
+        <button class="btn-add" onclick="openAddModal()">
             <span style="font-size:14px;">+</span>
             <span data-i18n="createUser">Create User</span>
         </button>
     </section>
 
-    <!-- USERS LIST -->
     <section class="card users-card">
         <div class="user-list" id="userList">
 
@@ -476,45 +516,138 @@ button{cursor:pointer;}
 
 </div>
 
-<!-- ADD USER MODAL -->
+<!-- ADD USER MODAL - SHLOGH O POLOGH EDITION 😎 -->
 <div class="overlay" id="addModal">
-    <div class="modal">
+    <div class="modal wide">
         <div class="modal-head">
-            <h3 data-i18n="createNewUser">Create New User</h3>
+            <div>
+                <h3 data-i18n="createNewUser">Create New User</h3>
+                <div class="modal-sub" data-i18n="createNewUserSub">Build a VPN account in seconds</div>
+            </div>
             <button class="close" onclick="closeModal('addModal')">×</button>
         </div>
 
         <form onsubmit="submitAddUser(event)">
-            <div class="form-group">
-                <label data-i18n="username">USERNAME</label>
-                <input id="add_name" class="input" type="text" placeholder="example: user01" required>
+
+            <!-- QUICK PLANS -->
+            <div class="plans-title">
+                <span class="star">✦</span>
+                <span data-i18n="quickPlans">QUICK PLANS</span>
+                <span style="margin-left:auto;color:#4e6b84;font-weight:600;letter-spacing:0;" data-i18n="quickPlansHint">one click to fill</span>
+            </div>
+            <div class="quick-plans">
+                <div class="plan-card bronze" onclick="applyPlan(this, 10, 7)">
+                    <div class="plan-icon">🥉</div>
+                    <div class="plan-name" data-i18n="planBronze">BRONZE</div>
+                    <div class="plan-info">10GB · 7D</div>
+                </div>
+                <div class="plan-card silver" onclick="applyPlan(this, 30, 30)">
+                    <div class="plan-icon">🥈</div>
+                    <div class="plan-name" data-i18n="planSilver">SILVER</div>
+                    <div class="plan-info">30GB · 30D</div>
+                </div>
+                <div class="plan-card gold" onclick="applyPlan(this, 60, 60)">
+                    <div class="plan-icon">🥇</div>
+                    <div class="plan-name" data-i18n="planGold">GOLD</div>
+                    <div class="plan-info">60GB · 60D</div>
+                </div>
+                <div class="plan-card diamond" onclick="applyPlan(this, 150, 90)">
+                    <div class="plan-icon">💎</div>
+                    <div class="plan-name" data-i18n="planDiamond">DIAMOND</div>
+                    <div class="plan-info">150GB · 90D</div>
+                </div>
+                <div class="plan-card vip" onclick="applyPlan(this, 500, 365)">
+                    <div class="plan-icon">👑</div>
+                    <div class="plan-name" data-i18n="planVip">VIP</div>
+                    <div class="plan-info">500GB · 1Y</div>
+                </div>
             </div>
 
+            <!-- USERNAME -->
             <div class="form-group">
-                <label data-i18n="trafficQuota">TRAFFIC QUOTA (GB)</label>
-                <input id="add_quota" class="input" type="number" value="30" min="1" required>
+                <label>
+                    <span data-i18n="username">USERNAME</span>
+                    <span class="label-hint"><span id="nameCount">0</span>/20</span>
+                </label>
+                <div class="input-with-btn">
+                    <input id="add_name" class="input" type="text" placeholder="example: user01" maxlength="20" oninput="updateNameCount()" required>
+                    <button type="button" class="input-icon-btn" onclick="generateRandomName()" title="Generate random username">🎲</button>
+                </div>
+            </div>
+
+            <!-- QUOTA -->
+            <div class="form-group">
+                <label>
+                    <span data-i18n="trafficQuota">TRAFFIC QUOTA (GB)</span>
+                    <span class="label-hint" id="quotaHint">—</span>
+                </label>
+                <input id="add_quota" class="input" type="number" value="30" min="1" max="2000" required oninput="syncSlider('quota')">
+                <div class="slider-row">
+                    <input type="range" id="add_quota_slider" class="slider-input" min="1" max="500" value="30" oninput="syncInput('quota')">
+                    <div class="slider-value" id="add_quota_display">30 GB</div>
+                </div>
                 <div class="presets">
                     <button type="button" class="preset" onclick="setValue('add_quota', 10, this)">10</button>
                     <button type="button" class="preset active" onclick="setValue('add_quota', 30, this)">30</button>
                     <button type="button" class="preset" onclick="setValue('add_quota', 50, this)">50</button>
                     <button type="button" class="preset" onclick="setValue('add_quota', 100, this)">100</button>
                     <button type="button" class="preset" onclick="setValue('add_quota', 200, this)">200</button>
+                    <button type="button" class="preset special" onclick="setValue('add_quota', 500, this)">500</button>
                 </div>
             </div>
 
+            <!-- DAYS -->
             <div class="form-group">
-                <label data-i18n="validity">VALIDITY (DAYS)</label>
-                <input id="add_days" class="input" type="number" value="30" min="1" required>
+                <label>
+                    <span data-i18n="validity">VALIDITY (DAYS)</span>
+                    <span class="label-hint" id="daysHint">—</span>
+                </label>
+                <input id="add_days" class="input" type="number" value="30" min="1" max="730" required oninput="syncSlider('days')">
+                <div class="slider-row">
+                    <input type="range" id="add_days_slider" class="slider-input" min="1" max="365" value="30" oninput="syncInput('days')">
+                    <div class="slider-value" id="add_days_display">30 D</div>
+                </div>
                 <div class="presets">
                     <button type="button" class="preset" onclick="setValue('add_days', 7, this)">7</button>
                     <button type="button" class="preset active" onclick="setValue('add_days', 30, this)">30</button>
                     <button type="button" class="preset" onclick="setValue('add_days', 60, this)">60</button>
                     <button type="button" class="preset" onclick="setValue('add_days', 90, this)">90</button>
                     <button type="button" class="preset" onclick="setValue('add_days', 180, this)">180</button>
+                    <button type="button" class="preset special" onclick="setValue('add_days', 365, this)">365</button>
                 </div>
             </div>
 
-            <button type="submit" id="addBtnSubmit" class="btn btn-blue" style="width:100%;padding:14px;font-size:11px;margin-top:5px;" data-i18n="createVpnAccount">Create VPN Account</button>
+            <!-- LIVE SUMMARY -->
+            <div class="summary">
+                <div class="summary-title">
+                    <span>⚡</span>
+                    <span data-i18n="orderSummary">ORDER SUMMARY</span>
+                </div>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <div class="lbl" data-i18n="sumUser">👤 USER</div>
+                        <div class="val" id="sumName">—</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="lbl" data-i18n="sumQuota">📊 QUOTA</div>
+                        <div class="val"><span id="sumQuota">30</span> <small>GB</small></div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="lbl" data-i18n="sumValidity">📅 VALIDITY</div>
+                        <div class="val"><span id="sumDays">30</span> <small data-i18n="sumDaysUnit">days</small></div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="lbl" data-i18n="sumExpires">⏰ EXPIRES ON</div>
+                        <div class="val" id="sumExpiry" style="font-size:10px;">—</div>
+                    </div>
+                    <div class="summary-item" style="grid-column:1 / -1;">
+                        <div class="lbl" data-i18n="sumDaily">⚡ AVERAGE DAILY USAGE</div>
+                        <div class="val"><span id="sumDaily">1.00</span> <small>GB / day</small></div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" id="addBtnSubmit" class="btn btn-blue" style="width:100%;padding:15px;font-size:12px;margin-top:15px;letter-spacing:1px;" data-i18n="createVpnAccount">🚀 CREATE VPN ACCOUNT</button>
         </form>
     </div>
 </div>
@@ -633,12 +766,17 @@ const translations = {
         config:"Config",edit:"Edit",reset:"Reset",off:"Off",on:"On",delete:"Delete",
         noUsers:"NO USERS YET",noUsersDesc:'Click "Create User" to add your first VPN account',
         noResults:"NO RESULTS FOUND",noResultsDesc:"Try changing your search or filter",
-        createNewUser:"Create New User",editUser:"Edit User",username:"USERNAME",trafficQuota:"TRAFFIC QUOTA (GB)",
-        validity:"VALIDITY (DAYS)",createVpnAccount:"Create VPN Account",saveChanges:"Save Changes",
+        createNewUser:"Create New User",createNewUserSub:"Build a VPN account in seconds",
+        editUser:"Edit User",username:"USERNAME",trafficQuota:"TRAFFIC QUOTA (GB)",
+        validity:"VALIDITY (DAYS)",createVpnAccount:"🚀 CREATE VPN ACCOUNT",saveChanges:"Save Changes",
         subscriptionUrl:"SUBSCRIPTION URL",copy:"Copy",openWebPanel:"Open Web Panel",copyAll:"Copy All",close:"Close",
         cancel:"Cancel",confirm:"Confirm",
         confirmDeleteTitle:"Delete User",confirmDeleteText:"Are you sure you want to delete this user? This action cannot be undone.",
-        confirmResetTitle:"Reset Traffic",confirmResetText:"This will reset the user's used traffic to 0 and restart their expiry countdown."
+        confirmResetTitle:"Reset Traffic",confirmResetText:"This will reset the user's used traffic to 0 and restart their expiry countdown.",
+        quickPlans:"QUICK PLANS",quickPlansHint:"one click to fill",
+        planBronze:"BRONZE",planSilver:"SILVER",planGold:"GOLD",planDiamond:"DIAMOND",planVip:"VIP",
+        orderSummary:"ORDER SUMMARY",sumUser:"👤 USER",sumQuota:"📊 QUOTA",sumValidity:"📅 VALIDITY",
+        sumExpires:"⏰ EXPIRES ON",sumDaily:"⚡ AVERAGE DAILY USAGE",sumDaysUnit:"days"
     },
     fa:{
         vpnControlPanel:"پنل مدیریت VPN",dashboard:"داشبورد",manageUsers:"مدیریت کاربران",panelSettings:"تنظیمات پنل",
@@ -654,12 +792,17 @@ const translations = {
         config:"کانفیگ",edit:"ویرایش",reset:"ریست",off:"خاموش",on:"روشن",delete:"حذف",
         noUsers:"هنوز کاربری ساخته نشده",noUsersDesc:'برای ساخت اولین کاربر دکمه "ساخت کاربر" را بزنید',
         noResults:"نتیجه‌ای یافت نشد",noResultsDesc:"جستجو یا فیلتر خود را تغییر دهید",
-        createNewUser:"ساخت کاربر جدید",editUser:"ویرایش کاربر",username:"نام کاربری",trafficQuota:"حجم ترافیک (گیگابایت)",
-        validity:"اعتبار (روز)",createVpnAccount:"ساخت حساب VPN",saveChanges:"ذخیره تغییرات",
+        createNewUser:"ساخت کاربر جدید",createNewUserSub:"در چند ثانیه یک حساب VPN بسازید",
+        editUser:"ویرایش کاربر",username:"نام کاربری",trafficQuota:"حجم ترافیک (گیگابایت)",
+        validity:"اعتبار (روز)",createVpnAccount:"🚀 ساخت حساب VPN",saveChanges:"ذخیره تغییرات",
         subscriptionUrl:"لینک اشتراک",copy:"کپی",openWebPanel:"پنل وب",copyAll:"کپی همه",close:"بستن",
         cancel:"انصراف",confirm:"تایید",
         confirmDeleteTitle:"حذف کاربر",confirmDeleteText:"آیا مطمئن هستید می‌خواهید این کاربر را حذف کنید؟ این عمل قابل بازگشت نیست.",
-        confirmResetTitle:"ریست ترافیک",confirmResetText:"ترافیک مصرفی کاربر صفر می‌شود و شمارش انقضا از نو شروع می‌شود."
+        confirmResetTitle:"ریست ترافیک",confirmResetText:"ترافیک مصرفی کاربر صفر می‌شود و شمارش انقضا از نو شروع می‌شود.",
+        quickPlans:"پلن‌های آماده",quickPlansHint:"با یک کلیک پر میشه",
+        planBronze:"برنزی",planSilver:"نقره‌ای",planGold:"طلایی",planDiamond:"الماس",planVip:"VIP",
+        orderSummary:"خلاصه سفارش",sumUser:"👤 کاربر",sumQuota:"📊 حجم",sumValidity:"📅 اعتبار",
+        sumExpires:"⏰ تاریخ انقضا",sumDaily:"⚡ میانگین مصرف روزانه",sumDaysUnit:"روز"
     }
 };
 
@@ -682,6 +825,7 @@ function applyLanguage(){
     });
 
     document.getElementById('languageBtn').innerText = currentLanguage === 'en' ? 'فارسی' : 'English';
+    updateSummary();
 }
 
 function toggleLanguage(){
@@ -702,10 +846,145 @@ function toggleSidebar(){ document.getElementById('sidebar').classList.toggle('o
 function openModal(id){ document.getElementById(id).classList.add('show'); }
 function closeModal(id){ document.getElementById(id).classList.remove('show'); }
 
+function openAddModal(){
+    // ریست وضعیت فرم
+    document.getElementById('add_name').value = '';
+    document.getElementById('add_quota').value = 30;
+    document.getElementById('add_days').value = 30;
+    document.getElementById('add_quota_slider').value = 30;
+    document.getElementById('add_days_slider').value = 30;
+    document.querySelectorAll('.plan-card').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('#addModal .preset').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('#addModal .presets').forEach(ps=>{
+        const btn30 = ps.querySelector('.preset:nth-child(2)');
+        if(btn30) btn30.classList.add('active');
+    });
+    updateNameCount();
+    updateSummary();
+    openModal('addModal');
+}
+
 function setValue(inputId, val, btn){
     document.getElementById(inputId).value = val;
-    btn.parentElement.querySelectorAll('.preset').forEach(p=>p.classList.remove('active'));
-    btn.classList.add('active');
+    if(btn && btn.parentElement){
+        btn.parentElement.querySelectorAll('.preset').forEach(p=>p.classList.remove('active'));
+        btn.classList.add('active');
+    }
+    // sync slider
+    const which = inputId.includes('quota') ? 'quota' : 'days';
+    if(inputId.startsWith('add_')) syncSlider(which);
+    updateSummary();
+}
+
+/* SLIDERS */
+function syncSlider(which){
+    const input = document.getElementById('add_' + which);
+    const slider = document.getElementById('add_' + which + '_slider');
+    const display = document.getElementById('add_' + which + '_display');
+    let val = parseInt(input.value) || 0;
+    const max = parseInt(slider.max);
+    if(val > max) slider.value = max; else slider.value = val;
+    display.innerText = val + (which === 'quota' ? ' GB' : ' D');
+    updateSummary();
+}
+
+function syncInput(which){
+    const input = document.getElementById('add_' + which);
+    const slider = document.getElementById('add_' + which + '_slider');
+    const display = document.getElementById('add_' + which + '_display');
+    input.value = slider.value;
+    display.innerText = slider.value + (which === 'quota' ? ' GB' : ' D');
+    // deactivate presets
+    document.querySelectorAll('#add_' + which).forEach(() => {});
+    const parent = input.parentElement;
+    const presets = parent.querySelector('.presets');
+    if(presets) presets.querySelectorAll('.preset').forEach(p=>p.classList.remove('active'));
+    updateSummary();
+}
+
+/* RANDOM NAME */
+function generateRandomName(){
+    const adjectives = ['swift','rapid','blaze','ninja','cyber','ghost','shadow','pablo','nova','titan','thunder','rocket','viper','phoenix'];
+    const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
+    const num = Math.floor(Math.random() * 9000) + 1000;
+    document.getElementById('add_name').value = adj + num;
+    updateNameCount();
+    updateSummary();
+}
+
+function updateNameCount(){
+    const name = document.getElementById('add_name').value;
+    document.getElementById('nameCount').innerText = name.length;
+    updateSummary();
+}
+
+/* QUICK PLANS */
+function applyPlan(card, quota, days){
+    document.querySelectorAll('.plan-card').forEach(p=>p.classList.remove('active'));
+    card.classList.add('active');
+    document.getElementById('add_quota').value = quota;
+    document.getElementById('add_days').value = days;
+    syncSlider('quota');
+    syncSlider('days');
+    // ریست پریست‌ها
+    document.querySelectorAll('#addModal .preset').forEach(p=>p.classList.remove('active'));
+    updateSummary();
+}
+
+/* SUMMARY */
+function updateSummary(){
+    const lang = translations[currentLanguage];
+    const name = document.getElementById('add_name') ? document.getElementById('add_name').value.trim() : '';
+    const quota = parseFloat(document.getElementById('add_quota') ? document.getElementById('add_quota').value : 30) || 0;
+    const days = parseInt(document.getElementById('add_days') ? document.getElementById('add_days').value : 30) || 0;
+
+    const sumName = document.getElementById('sumName');
+    const sumQuota = document.getElementById('sumQuota');
+    const sumDays = document.getElementById('sumDays');
+    const sumExpiry = document.getElementById('sumExpiry');
+    const sumDaily = document.getElementById('sumDaily');
+    const quotaHint = document.getElementById('quotaHint');
+    const daysHint = document.getElementById('daysHint');
+
+    if(!sumName) return;
+
+    sumName.innerText = name || '—';
+    sumQuota.innerText = quota;
+    sumDays.innerText = days;
+
+    // Expiry date
+    if(days > 0){
+        const expiry = new Date();
+        expiry.setDate(expiry.getDate() + days);
+        const opts = {year:'numeric', month:'short', day:'numeric'};
+        sumExpiry.innerText = expiry.toLocaleDateString(currentLanguage === 'fa' ? 'fa-IR' : 'en-US', opts);
+    } else {
+        sumExpiry.innerText = '—';
+    }
+
+    // Daily avg
+    if(days > 0 && quota > 0){
+        sumDaily.innerText = (quota / days).toFixed(2);
+    } else {
+        sumDaily.innerText = '0';
+    }
+
+    // Hints
+    if(quotaHint){
+        if(quota >= 500) quotaHint.innerText = currentLanguage === 'fa' ? '👑 حجم VIP' : '👑 VIP Volume';
+        else if(quota >= 100) quotaHint.innerText = currentLanguage === 'fa' ? '💎 حجم عالی' : '💎 Great';
+        else if(quota >= 50) quotaHint.innerText = currentLanguage === 'fa' ? '🔥 حجم خوب' : '🔥 Good';
+        else if(quota >= 10) quotaHint.innerText = currentLanguage === 'fa' ? '✓ حجم استاندارد' : '✓ Standard';
+        else quotaHint.innerText = currentLanguage === 'fa' ? '⚠ حجم کم' : '⚠ Low';
+    }
+
+    if(daysHint){
+        if(days >= 365) daysHint.innerText = currentLanguage === 'fa' ? '📅 یک سال' : '📅 1 Year';
+        else if(days >= 180) daysHint.innerText = currentLanguage === 'fa' ? '📅 ۶ ماه' : '📅 6 Months';
+        else if(days >= 90) daysHint.innerText = currentLanguage === 'fa' ? '📅 ۳ ماه' : '📅 3 Months';
+        else if(days >= 30) daysHint.innerText = currentLanguage === 'fa' ? '📅 ماهانه' : '📅 Monthly';
+        else daysHint.innerText = currentLanguage === 'fa' ? '📅 کوتاه‌مدت' : '📅 Short-term';
+    }
 }
 
 function setFilter(filter){
@@ -794,8 +1073,9 @@ async function submitAddUser(e){
     const quota = document.getElementById('add_quota').value;
     const days = document.getElementById('add_days').value;
     const btn = document.getElementById('addBtnSubmit');
+    const originalText = btn.innerText;
 
-    btn.innerText = currentLanguage === 'fa' ? 'در حال ساخت...' : 'Creating...';
+    btn.innerText = currentLanguage === 'fa' ? '⏳ در حال ساخت...' : '⏳ Creating...';
     btn.disabled = true;
 
     try{
@@ -811,13 +1091,13 @@ async function submitAddUser(e){
             setTimeout(()=>location.reload(), 700);
         } else {
             showToast(data.message || 'Error', 'error');
+            btn.innerText = originalText;
             btn.disabled = false;
-            applyLanguage();
         }
     } catch(err){
         showToast(currentLanguage === 'fa' ? 'خطا در ارتباط با سرور' : 'Server error', 'error');
+        btn.innerText = originalText;
         btn.disabled = false;
-        applyLanguage();
     }
 }
 
@@ -978,6 +1258,7 @@ document.querySelectorAll('.overlay').forEach(o=>{
 applyLanguage();
 refreshOnlineUsers();
 setInterval(refreshOnlineUsers, 15000);
+updateSummary();
 </script>
 
 </body>
