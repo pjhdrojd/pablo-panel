@@ -524,7 +524,7 @@ http {{
 
 
 # =========================================================
-# ساخت کانفیگ‌های ۳ گانه پرسرعت
+# ساخت کانفیگ‌های ۱۰ گانه فوق پرسرعت (تست پینگ همه اپراتورها)
 # =========================================================
 
 def make_all_vless_configs(user, host):
@@ -552,7 +552,7 @@ def make_all_vless_configs(user, host):
 
     configs = []
 
-    # کانفیگ پرسرعت ۱ (TLS + Chrome FP)
+    # 1. 🚀 کانفـیگ پرسرعـت¹ (بستر ایمن TLS و کروم)
     c1 = (
         f"vless://{u_uuid}@{host}:443"
         f"?path=%2Fws%2F{u_uuid}"
@@ -574,7 +574,7 @@ def make_all_vless_configs(user, host):
         "config": c1
     })
 
-    # کانفیگ پرسرعت ۲ (TLS + EarlyData پینگ پایین)
+    # 2. ⚡ کانفـیگ پرسرعـت² (EarlyData پینگ فوق پایین)
     c2 = (
         f"vless://{u_uuid}@{host}:443"
         f"?path=%2Fws%2F{u_uuid}%3Fed%3D2560"
@@ -596,7 +596,7 @@ def make_all_vless_configs(user, host):
         "config": c2
     })
 
-    # کانفیگ پرسرعت ۳ (TLS + Firefox Multi-ALPN)
+    # 3. 🛡️ کانفـیگ پرسرعـت³ (Firefox ALPN)
     c3 = (
         f"vless://{u_uuid}@{host}:443"
         f"?path=%2Fws%2F{u_uuid}"
@@ -616,6 +616,154 @@ def make_all_vless_configs(user, host):
         "desc": "فرکانس چندگانه و ضد فیلتر مناسب دانلود‌های سنگین",
         "tag": "HighSpeed 3",
         "config": c3
+    })
+
+    # 4. 🎯 کانفـیگ پرسرعـت⁴ (متد نمونه - فوق‌پایدار همراه اول)
+    c4 = (
+        f"vless://{u_uuid}@{host}:443"
+        f"?path=%2Fws%2F{u_uuid}"
+        f"&security=tls"
+        f"&alpn=http%2F1.1"
+        f"&encryption=none"
+        f"&insecure=0"
+        f"&host={host}"
+        f"&fp=chrome"
+        f"&type=ws"
+        f"&allowInsecure=0"
+        f"&sni={host}"
+        f"#{encoded_remark}%20%5B4%5D"
+    )
+    configs.append({
+        "title": "🎯 کانفـیگ پرسرعـت⁴",
+        "desc": "متد بهینه‌سازی شده‌ی نمونه مخصوص دور زدن فیلترینگ شدید همراه اول",
+        "tag": "HighSpeed 4",
+        "config": c4
+    })
+
+    # 5. 🔥 کانفـیگ پرسرعـت⁵ (ویژه اپراتور ایرانسل)
+    c5 = (
+        f"vless://{u_uuid}@{host}:443"
+        f"?path=%2Fws%2F{u_uuid}%3Fed%3D2048"
+        f"&security=tls"
+        f"&alpn=h2"
+        f"&encryption=none"
+        f"&insecure=0"
+        f"&host={host}"
+        f"&fp=edge"
+        f"&type=ws"
+        f"&allowInsecure=0"
+        f"&sni={host}"
+        f"#{encoded_remark}%20%5B5%5D"
+    )
+    configs.append({
+        "title": "🔥 کانفـیگ پرسرعـت⁵",
+        "desc": "مخصوص ایرانسل با فینگرپرینت متمایز Edge جهت پایداری بالا",
+        "tag": "HighSpeed 5",
+        "config": c5
+    })
+
+    # 6. 🔋 کانفـیگ پرسرعـت⁶ (اینترنت خانگی و ADSL)
+    c6 = (
+        f"vless://{u_uuid}@{host}:443"
+        f"?path=%2Fws%2F{u_uuid}"
+        f"&security=tls"
+        f"&encryption=none"
+        f"&insecure=0"
+        f"&host={host}"
+        f"&fp=opera"
+        f"&type=ws"
+        f"&allowInsecure=0"
+        f"&sni={host}"
+        f"#{encoded_remark}%20%5B6%5D"
+    )
+    configs.append({
+        "title": "🔋 کانفـیگ پرسرعـت⁶",
+        "desc": "مخصوص مخابرات، شاتل، آسیاتک و پارس‌آنلاین با فینگرپرینت Opera",
+        "tag": "HighSpeed 6",
+        "config": c6
+    })
+
+    # 7. 🔌 کانفـیگ پرسرعـت⁷ (مخصوص رایتل و اپراتورهای مجازی)
+    c7 = (
+        f"vless://{u_uuid}@{host}:443"
+        f"?path=%2Fws%2F{u_uuid}%3Fed%3D2560"
+        f"&security=tls"
+        f"&alpn=http%2F1.1"
+        f"&encryption=none"
+        f"&insecure=0"
+        f"&host={host}"
+        f"&fp=android"
+        f"&type=ws"
+        f"&allowInsecure=0"
+        f"&sni={host}"
+        f"#{encoded_remark}%20%5B7%5D"
+    )
+    configs.append({
+        "title": "🔌 کانفـیگ پرسرعـت⁷",
+        "desc": "شبیه‌سازی بر بستر آندروید سازگار با رایتل و شاتل‌موبایل",
+        "tag": "HighSpeed 7",
+        "config": c7
+    })
+
+    # 8. 🌐 کانفـیگ پرسرعـت⁸ (بدون رمزنگاری - پورت 80)
+    c8 = (
+        f"vless://{u_uuid}@{host}:80"
+        f"?path=%2Fws%2F{u_uuid}"
+        f"&security=none"
+        f"&encryption=none"
+        f"&host={host}"
+        f"&type=ws"
+        f"#{encoded_remark}%20%5B8%5D"
+    )
+    configs.append({
+        "title": "🌐 کانفـیگ پرسرعـت⁸",
+        "desc": "پورت اضطراری ۸۰ بدون رمزنگاری TLS (برای زمان اختلالات شدید گیت‌وی)",
+        "tag": "HighSpeed 8",
+        "config": c8
+    })
+
+    # 9. 💎 کانفـیگ پرسرعـت⁹ (بای‌پاس هوشمند)
+    c9 = (
+        f"vless://{u_uuid}@{host}:443"
+        f"?path=%2Fws%2F{u_uuid}"
+        f"&security=tls"
+        f"&alpn=http%2F1.1"
+        f"&encryption=none"
+        f"&insecure=0"
+        f"&host={host}"
+        f"&fp=random"
+        f"&type=ws"
+        f"&allowInsecure=0"
+        f"&sni={host}"
+        f"#{encoded_remark}%20%5B9%5D"
+    )
+    configs.append({
+        "title": "💎 کانفـیگ پرسرعـت⁹",
+        "desc": "دارای فینگرپرینت کاملاً رندوم برای دور زدن فیلترینگ‌های هوشمند",
+        "tag": "HighSpeed 9",
+        "config": c9
+    })
+
+    # 10. 🛰️ کانفـیگ پرسرعـت¹⁰ (مخصوص کلودفلر/CDN)
+    c10 = (
+        f"vless://{u_uuid}@{host}:443"
+        f"?path=%2Fws%2F{u_uuid}%3Fhost%3D{host}"
+        f"&security=tls"
+        f"&alpn=http%2F1.1"
+        f"&encryption=none"
+        f"&insecure=0"
+        f"&host={host}"
+        f"&fp=chrome"
+        f"&type=ws"
+        f"&allowInsecure=0"
+        f"&sni={host}"
+        f"#{encoded_remark}%20%5B10%5D"
+    )
+    configs.append({
+        "title": "🛰️ کانفـیگ پرسرعـت¹⁰",
+        "desc": "مخصوص دور زدن پکت‌لاسی زیرساخت شبکه با روت بهینه‌سازی شده CDN",
+        "tag": "HighSpeed 10",
+        "config": c10
     })
 
     return configs
