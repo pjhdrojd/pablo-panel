@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>PabloPanel | Users</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<style>
+/* تمام استایل‌های خودت دقیقاً همونه */
+:root{ --bg:#020712; --panel:#071525; --line:rgba(0,174,255,.18); --text:#f3f8ff; --muted:#7890a8; }
+*{ box-sizing:border-box; margin:0; padding:0; font-family:Inter,Arial,sans-serif; -webkit-tap-highlight-color:transparent; }
+html,body{ min-height:100%; }
+body{ background: radial-gradient(circle at 10% 10%,rgba(0,157,255,.12),transparent 28%), radial-gradient(circle at 90% 90%,rgba(0,217,255,.08),transparent 30%), var(--bg); color:var(--text); overflow-x:hidden; }
+body:before{ content:""; position:fixed; inset:0; pointer-events:none; background-image: linear-gradient(rgba(0,157,255,.025) 1px,transparent 1px), linear-gradient(90deg,rgba(0,157,255,.025) 1px,transparent 1px); background-size:40px 40px; mask-image:linear-gradient(to bottom,black,transparent); }
+body.rtl, body.rtl *{ font-family:Vazirmatn,Inter,Arial,sans-serif; }
+button,input{ font:inherit; } button{ cursor:pointer; }
+.app{ display:flex; min-height:100vh; }
+/* SIDEBAR */
+.sidebar{ width:245px; flex-shrink:0; background:rgba(3,12,24,.94); border-right:1px solid var(--line); padding:20px 14px; display:flex; flex-direction:column; position:fixed; left:0; top:0; bottom:0; z-index:100; backdrop-filter:blur(20px); box-shadow:8px 0 35px rgba(0,0,0,.18); }
+.rtl .sidebar{ left:auto; right:0; border-right:0; border-left:1px solid var(--line); box-shadow:-8px 0 35px rgba(0,0,0,.18); }
+.brand{ display:flex; align-items:center; gap:11px; padding:5px 8px 25px; border-bottom:1px solid rgba(0,157,255,.12); margin-bottom:20px; }
+.brand-logo{ width:44px; height:44px; border-radius:12px; border:1px solid rgba(0,217,255,.28); box-shadow:0 0 12px rgba(0,157,255,.35); background:#009dff; }
+.brand-name{ font-size:20px; font-weight:900; letter-spacing:2px; color:#fff; text-shadow:0 0 8px rgba(0,157,255,.8); }
+.brand-sub{ color:#00bfff; font-size:9px; margin-top:4px; letter-spacing:1.5px; }
+.nav-item{ display:flex; align-items:center; gap:11px; width:100%; padding:12px; margin-bottom:5px; border-radius:11px; color:#7890a8; text-decoration:none; font-size:12px; font-weight:600; border:1px solid transparent; transition:.2s; }
+.nav-item:hover, .nav-item.active{ color:#fff; background:linear-gradient(90deg,rgba(0,157,255,.18),rgba(0,157,255,.04)); border-color:rgba(0,157,255,.18); box-shadow:inset 3px 0 0 #009dff; }
+.rtl .nav-item:hover, .rtl .nav-item.active{ background:linear-gradient(270deg,rgba(0,157,255,.18),rgba(0,157,255,.04)); box-shadow:inset -3px 0 0 #009dff; }
+.nav-icon{ width:22px; text-align:center; font-size:14px; color:#5d7892; }
+.sidebar-bottom{ margin-top:auto; border-top:1px solid rgba(0,157,255,.12); padding-top:14px; }
+.developer-box{ background:rgba(0,157,255,.05); border:1px solid rgba(0,157,255,.12); border-radius:13px; padding:12px; margin-bottom:12px; }
+.developer-box small{ color:#55718c; font-size:8px; }
+.developer-box strong{ display:block; color:#00c8ff; font-size:11px; margin-top:4px; }
+/* MAIN */
+.main{ width:calc(100% - 245px); margin-left:245px; padding:22px; min-width:0; }
+.rtl .main{ margin-left:0; margin-right:245px; }
+.topbar{ display:flex; align-items:center; justify-content:space-between; gap:15px; margin-bottom:22px; }
+.mobile-menu{ display:none; width:42px; height:42px; border:1px solid var(--line); border-radius:12px; color:#fff; background:var(--panel); font-size:23px; }
+.page-title h1{ font-size:24px; font-weight:900; }
+.page-title p{ color:var(--muted); font-size:11px; margin-top:5px; }
+.top-actions{ display:flex; align-items:center; gap:10px; }
+.language-btn{ min-width:68px; height:38px; padding:0 12px; border-radius:10px; border:1px solid rgba(0,157,255,.25); background:rgba(0,157,255,.07); color:#00c8ff; font-size:10px; font-weight:800; }
+.profile{ display:flex; align-items:center; gap:10px; }
+.profile-info{ text-align:right; } .rtl .profile-info{ text-align:left; }
+.profile-info strong{ display:block; font-size:11px; }
+.profile-info span{ color:#00d99a; font-size:9px; }
+.avatar{ width:40px; height:40px; border-radius:12px; overflow:hidden; border:1px solid rgba(0,217,255,.25); background:#009dff;}
+.card{ background:linear-gradient(145deg,rgba(9,28,48,.90),rgba(3,14,27,.92)); border:1px solid var(--line); border-radius:17px; position:relative; overflow:hidden; }
+.card:after{ content:""; position:absolute; top:0; left:15%; right:15%; height:1px; background:linear-gradient(90deg,transparent,#00c8ff,transparent); opacity:.5; }
+
+/* USERS CARD */
+.users-card{ padding:20px; }
+.section-title{ display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; }
+.section-title h2{ font-size:16px; font-weight:800; }
+.user-list{ display:flex; flex-direction:column; gap:8px; }
+.user-row{ display:grid; grid-template-columns:1.4fr .7fr .7fr auto; align-items:center; gap:12px; padding:12px; border-radius:12px; background:rgba(2,11,22,.55); border:1px solid rgba(0,157,255,.08); transition:.2s; }
+.user-row:hover{ border-color:rgba(0,157,255,.25); background:rgba(0,157,255,.04); }
+.user-name{ display:flex; align-items:center; gap:9px; min-width:0; }
+.user-avatar{ width:31px; height:31px; flex-shrink:0; border-radius:9px; display:flex; align-items:center; justify-content:center; background:rgba(0,157,255,.12); color:#00c8ff; font-size:9px; font-weight:900; }
+.user-name strong{ display:block; font-size:11px; }
+.user-name small{ color:#4e6b84; display:block; font-size:8px; margin-top:3px; }
+.user-data{ color:#8ba3ba; font-size:9px; } .user-data b{ color:#e9f4ff; }
+.badge{ display:inline-flex; align-items:center; gap:5px; padding:5px 8px; border-radius:7px; font-size:8px; font-weight:800; }
+.badge.active{ color:#00e89a; background:rgba(0,232,154,.08); border:1px solid rgba(0,232,154,.14); }
+.badge.off{ color:#ff5274; background:rgba(255,69,103,.08); border:1px solid rgba(255,69,103,.14); }
+
+/* ACTIONS */
+.actions{ display:flex; gap:5px; justify-content:flex-end; }
+.btn{ border:0; border-radius:8px; padding:8px 10px; font-size:9px; font-weight:800; color:#fff; transition:.2s; }
+.btn:active{ transform:scale(.95); }
+.btn-blue{ background:linear-gradient(135deg,#007cff,#00bfff); box-shadow:0 0 14px rgba(0,157,255,.2); }
+.btn-dark{ background:#0b1a2b; border:1px solid #17344e; color:#9db4c9; }
+.btn-red{ background:rgba(255,69,103,.1); border:1px solid rgba(255,69,103,.18); color:#ff617e; }
+.btn-orange{ background:rgba(255,165,0,.1); border:1px solid rgba(255,165,0,.18); color:#ffa500; }
+
+/* MODALS */
+.overlay{ position:fixed; inset:0; background:rgba(0,4,10,.82); backdrop-filter:blur(10px); display:none; align-items:center; justify-content:center; padding:15px; z-index:500; }
+.overlay.show{ display:flex; }
+.modal{ width:100%; max-width:510px; max-height:90vh; overflow:auto; background:#061322; border:1px solid rgba(0,157,255,.3); border-radius:20px; box-shadow:0 0 50px rgba(0,157,255,.15), 0 25px 70px rgba(0,0,0,.7); padding:20px; }
+.modal-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; padding-bottom:13px; border-bottom:1px solid rgba(0,157,255,.1); }
+.close{ width:30px; height:30px; border:1px solid #18344c; background:#091a2c; color:#829bb1; border-radius:8px; font-size:16px; }
+.form-group{ margin-bottom:13px; }
+.form-group label{ display:block; color:#7e98b0; font-size:9px; margin-bottom:6px; }
+.input{ width:100%; background:#020b16; color:#fff; border:1px solid #17344e; border-radius:10px; padding:11px 12px; outline:none; font-size:11px; }
+.input:focus{ border-color:#00aaff; box-shadow:0 0 12px rgba(0,157,255,.12); }
+.search-box{ width: 100%; max-width: 300px; margin-bottom: 15px; }
+
+/* CONFIG BOX */
+.config-box{ background:#020b16; border:1px solid #12304a; border-radius:12px; padding:11px; margin-bottom:8px; }
+.config-top{ display:flex; justify-content:space-between; gap:10px; align-items:center; }
+.sub-box{ padding:12px; background:rgba(0,157,255,.045); border:1px solid rgba(0,157,255,.12); border-radius:12px; margin-bottom:13px; }
+
+.toast{ position:fixed; left:50%; bottom:20px; transform:translate(-50%,100px); background:#061a2b; color:#fff; border:1px solid #007fca; border-radius:12px; padding:11px 18px; font-size:10px; font-weight:700; z-index:999; transition:.3s; }
+.toast.show{ transform:translate(-50%,0); }
+
+@media(max-width:900px){
+    .sidebar{ transform:translateX(-105%); transition:.3s; }
+    .rtl .sidebar{ transform:translateX(105%); }
+    .sidebar.open, .rtl .sidebar.open{ transform:translateX(0); }
+    .main{ width:100%; margin-left:0; margin-right:0; padding:14px; }
+    .mobile-menu{ display:flex; align-items:center; justify-content:center; }
+    .user-row{ grid-template-columns:1fr; gap:10px; }
+    .actions{ justify-content:stretch; flex-wrap: wrap; }
+    .actions .btn{ flex:1; }
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+    <aside class="sidebar" id="sidebar">
+        <div>
+            <div class="brand">
+                <div class="brand-logo"></div>
+                <div><div class="brand-name">PabloPanel</div><div class="brand-sub" data-i18n="vpnControlPanel">VPN CONTROL PANEL</div></div>
+            </div>
+            
+            <a href="/dashboard" class="nav-item">
+                <span class="nav-icon">⌂</span><span data-i18n="dashboard">Dashboard</span>
+            </a>
+            
+            <a href="/users" class="nav-item active">
+                <span class="nav-icon">👥</span><span data-i18n="usersManagement">Users Management</span>
+            </a>
+            
+            <a href="/settings" class="nav-item">
+                <span class="nav-icon">⚙</span><span data-i18n="panelSettings">Panel Settings</span>
+            </a>
+        </div>
+        <div class="sidebar-bottom">
+            <div class="developer-box"><small data-i18n="designedDeveloped">DESIGNED & DEVELOPED BY</small><strong>PabloPanel</strong></div>
+            <a href="/logout" class="nav-item logout"><span class="nav-icon">↪</span><span data-i18n="logout">Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="main">
+        <div class="topbar">
+            <div style="display:flex;align-items:center;gap:10px;">
+                <button class="mobile-menu" onclick="toggleSidebar()">☰</button>
+                <div class="page-title">
+                    <h1 data-i18n="usersManagement">Users Management</h1>
+                    <p>مدیریت کامل اکانت‌ها و ترافیک کاربران</p>
+                </div>
+            </div>
+            <div class="top-actions">
+                <button class="language-btn" id="languageBtn" onclick="toggleLanguage()">فارسی</button>
+                <div class="profile">
+                    <div class="profile-info"><strong data-i18n="administrator">Administrator</strong><span data-i18n="online">ONLINE</span></div>
+                    <div class="avatar"></div>
+                </div>
+            </div>
+        </div>
+
+        <section class="card users-card">
+            <div class="section-title" style="flex-wrap: wrap; gap: 10px;">
+                <input type="text" id="searchInput" onkeyup="searchUsers()" placeholder="🔍 جستجو بر اساس نام کاربر..." class="input search-box">
+                <button class="btn btn-blue" style="padding: 10px 15px;" onclick="openModal('addModal')">
+                    + <span data-i18n="createUser">Create User</span>
+                </button>
+            </div>
+
+            <div class="user-list" id="userList">
+                {% if users %}
+                    {% for user in users %}
+                    {% set used_gb = (user.used_bytes / 1073741824)|round(2) %}
+                    <div class="user-row">
+                        <div class="user-name">
+                            <div class="user-avatar">US</div>
+                            <div>
+                                <strong>{{ user.name }}</strong>
+                                <small>انقضا: {{ user.expiry_str }}</small>
+                            </div>
+                        </div>
+                        <div class="user-data"><b>{{ used_gb }} GB</b><br><span data-i18n="used">Used</span></div>
+                        <div class="user-data"><b>{{ user.quota_gb }} GB</b><br><span data-i18n="quota">Quota</span></div>
+                        <div style="display:flex; align-items:center; gap:8px; justify-content:flex-end; flex-wrap:wrap;">
+                            {% if user.enabled == 1 %}
+                                <span class="badge active" data-i18n="active">ACTIVE</span>
+                            {% else %}
+                                <span class="badge off" data-i18n="disabled">DISABLED</span>
+                            {% endif %}
+                            <div class="actions">
+                                <button class="btn btn-blue" onclick="loadUserConfig({{ user.id }})" data-i18n="config">Config</button>
+                                <button class="btn btn-dark" onclick="toggleUser({{ user.id }})">{% if user.enabled == 1 %}<span data-i18n="off">Off</span>{% else %}<span data-i18n="on">On</span>{% endif %}</button>
+                                <button class="btn btn-orange" onclick="resetTraffic({{ user.id }})">ریست حجم</button>
+                                <button class="btn btn-red" onclick="deleteUser({{ user.id }})" data-i18n="delete">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div style="padding:50px 10px;text-align:center;color:#557089;"><div data-i18n="noUsersCreated">No users created yet</div></div>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+</div>
+
+<!-- MODAL ADD USER -->
+<div class="overlay" id="addModal">
+    <div class="modal">
+        <div class="modal-head"><h3 data-i18n="createNewUser">Create New User</h3><button class="close" onclick="closeModal('addModal')">×</button></div>
+        <form onsubmit="submitAddUser(event)">
+            <div class="form-group"><label data-i18n="username">USERNAME</label><input id="add_name" class="input" type="text" required></div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                <div class="form-group"><label data-i18n="trafficQuota">TRAFFIC QUOTA (GB)</label><input id="add_quota" class="input" type="number" value="30" required></div>
+                <div class="form-group"><label data-i18n="validity">VALIDITY (DAYS)</label><input id="add_days" class="input" type="number" value="30" required></div>
+            </div>
+            <button type="submit" id="addBtnSubmit" class="btn btn-blue" style="width:100%;padding:13px;" data-i18n="createVpnAccount">Create VPN Account</button>
+        </form>
+    </div>
+</div>
+
+<!-- MODAL CONFIG -->
+<div class="overlay" id="configModal">
+    <div class="modal">
+        <div class="modal-head"><h3 id="cfgTitle">User Configurations</h3><button class="close" onclick="closeModal('configModal')">×</button></div>
+        <div class="sub-box">
+            <label data-i18n="subscriptionUrl">SUBSCRIPTION URL</label>
+            <div style="display:flex;gap:5px;">
+                <input id="subUrlField" class="input" readonly>
+                <button onclick="copySubLink()" class="btn btn-blue" data-i18n="copy">Copy</button>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:7px;">
+                <button onclick="openSubLink()" class="btn btn-dark" data-i18n="openWebPanel">Open Web Panel</button>
+                <button onclick="copyAllConfigs()" class="btn btn-green" data-i18n="copyAll">Copy All</button>
+            </div>
+        </div>
+        <div id="cfgContainer"></div>
+        <div id="qrWrap" style="display:none; text-align:center; margin-top:12px;">
+            <div id="qrBox" style="display:inline-block; background:#fff; padding:9px; border-radius:12px;"></div>
+            <div id="qrText" style="color:#7190a9; font-size:9px; margin-top:7px;"></div>
+        </div>
+    </div>
+</div>
+
+<div id="toast" class="toast">System message</div>
+
+<script>
+// جستجوی زنده
+function searchUsers() {
+    let input = document.getElementById("searchInput").value.toLowerCase();
+    let items = document.querySelectorAll(".user-row");
+    items.forEach(function(item) {
+        let name = item.querySelector(".user-name strong").innerText.toLowerCase();
+        if (name.includes(input)) {
+            item.style.display = "";
+        } else {
+            item.style.display = "none";
+        }
+    });
+}
+
+// ریست حجم کاربر
+async function resetTraffic(id) {
+    if(!confirm(currentLanguage === 'fa' ? 'مطمئنی می‌خوای ترافیک مصرفی این کاربر رو صفر کنی؟' : 'Reset traffic for this user?')){ return; }
+    try{
+        const res = await fetch('/api/reset_user/' + id, {method:'POST'});
+        const data = await res.json();
+        if(data.status === 'success') { showToast('ترافیک صفر شد!'); setTimeout(()=>location.reload(), 600); }
+    }catch(e){ alert('خطا'); }
+}
+
+// بقیه اسکریپت‌ها مثل قبل (کپی کردن از فایل قبلیت)
+let currentConfigs = []; let currentSub = '';
+const translations = {
+    en:{ dashboard:"Dashboard", usersManagement:"Users Management", panelSettings:"Panel Settings", logout:"Logout", administrator:"Administrator", online:"ONLINE", users:"Users", createUser:"Create User", used:"Used", quota:"Quota", active:"ACTIVE", disabled:"DISABLED", config:"Config", off:"Off", on:"On", delete:"Delete", noUsersCreated:"No users created yet", createNewUser:"Create New User", username:"USERNAME", trafficQuota:"TRAFFIC QUOTA (GB)", validity:"VALIDITY (DAYS)", createVpnAccount:"Create VPN Account", subscriptionUrl:"SUBSCRIPTION URL", copy:"Copy", openWebPanel:"Open Web Panel", copyAll:"Copy All", designedDeveloped:"DESIGNED BY", vpnControlPanel:"VPN CONTROL PANEL" },
+    fa:{ dashboard:"داشبورد", usersManagement:"مدیریت کاربران", panelSettings:"تنظیمات پنل", logout:"خروج", administrator:"مدیر", online:"آنلاین", users:"کاربران", createUser:"ساخت کاربر", used:"مصرف", quota:"حجم", active:"فعال", disabled:"غیرفعال", config:"کانفیگ", off:"خاموش", on:"روشن", delete:"حذف", noUsersCreated:"هنوز کاربری ساخته نشده", createNewUser:"ساخت کاربر جدید", username:"نام کاربری", trafficQuota:"حجم ترافیک (GB)", validity:"اعتبار (روز)", createVpnAccount:"ساخت حساب VPN", subscriptionUrl:"لینک اشتراک", copy:"کپی", openWebPanel:"پنل وب", copyAll:"کپی همه", designedDeveloped:"توسعه توسط", vpnControlPanel:"پنل VPN" }
+};
+let currentLanguage = localStorage.getItem('pabloPanelLanguage') || 'en';
+function applyLanguage(){
+    const lang = translations[currentLanguage];
+    document.documentElement.lang = currentLanguage;
+    document.documentElement.dir = currentLanguage === 'fa' ? 'rtl' : 'ltr';
+    document.body.classList.toggle('rtl', currentLanguage === 'fa');
+    document.querySelectorAll('[data-i18n]').forEach(el => { if(lang[el.getAttribute('data-i18n')]) el.textContent = lang[el.getAttribute('data-i18n')]; });
+    document.getElementById('languageBtn').innerText = currentLanguage === 'en' ? 'فارسی' : 'English';
+}
+function toggleLanguage(){ currentLanguage = currentLanguage === 'en' ? 'fa' : 'en'; localStorage.setItem('pabloPanelLanguage', currentLanguage); applyLanguage(); }
+function showToast(msg){ const t = document.getElementById('toast'); t.innerText = msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2000); }
+function toggleSidebar(){ document.getElementById('sidebar').classList.toggle('open'); }
+function openModal(id){ document.getElementById(id).classList.add('show'); }
+function closeModal(id){ document.getElementById(id).classList.remove('show'); }
+
+async function submitAddUser(e){ e.preventDefault(); const n = document.getElementById('add_name').value; const q = document.getElementById('add_quota').value; const d = document.getElementById('add_days').value; await fetch('/api/add_user', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({name:n, quota:q, days:d})}); location.reload(); }
+async function toggleUser(id){ await fetch('/api/toggle_user/'+id, {method:'POST'}); location.reload(); }
+async function deleteUser(id){ if(confirm('حذف شود؟')){ await fetch('/api/delete_user/'+id, {method:'POST'}); location.reload(); } }
+
+async function loadUserConfig(id){
+    const res = await fetch('/api/user_config/'+id); const data = await res.json();
+    currentConfigs = data.configs; currentSub = data.sub;
+    document.getElementById('subUrlField').value = data.sub;
+    const cont = document.getElementById('cfgContainer'); cont.innerHTML = '';
+    data.configs.forEach((c, i) => {
+        cont.innerHTML += `<div class="config-box"><div class="config-top"><div><div class="config-title">${c.title}</div><div class="config-desc">${c.desc}</div></div><div class="config-actions"><button class="btn btn-blue" onclick="copyText('${c.config}')">کپی</button><button class="btn btn-dark" onclick="showQR('${c.config}', '${c.title}')">QR</button></div></div></div>`;
+    });
+    document.getElementById('qrWrap').style.display='none'; openModal('configModal');
+}
+function copySubLink(){ navigator.clipboard.writeText(currentSub); showToast('ساب کپی شد'); }
+function openSubLink(){ window.open(currentSub, '_blank'); }
+function copyAllConfigs(){ navigator.clipboard.writeText(currentConfigs.map(c=>c.config).join('\n')); showToast('همه کپی شدند'); }
+function copyText(t){ navigator.clipboard.writeText(t); showToast('کپی شد'); }
+function showQR(cfg, title){ const box = document.getElementById('qrBox'); box.innerHTML=''; new QRCode(box, {text:cfg, width:150, height:150}); document.getElementById('qrText').innerText=title; document.getElementById('qrWrap').style.display='block'; }
+
+document.querySelectorAll('.overlay').forEach(o => o.addEventListener('click', e => { if(e.target===o) o.classList.remove('show'); }));
+applyLanguage();
+</script>
+</body>
+</html>
