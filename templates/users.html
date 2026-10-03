@@ -10,62 +10,26 @@
 
 <style>
 :root{
-    --bg:#020712;
-    --panel:#071525;
-    --line:rgba(0,174,255,.18);
-    --blue:#009dff;
-    --cyan:#00d9ff;
-    --text:#f3f8ff;
-    --muted:#7890a8;
-    --green:#00e89a;
-    --red:#ff4567;
-    --orange:#ffa500;
+    --bg:#020712;--panel:#071525;--line:rgba(0,174,255,.18);
+    --blue:#009dff;--cyan:#00d9ff;--text:#f3f8ff;--muted:#7890a8;
+    --green:#00e89a;--red:#ff4567;--orange:#ffa500;
     --shadow:0 0 35px rgba(0,157,255,.10);
 }
 
 *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,Arial,sans-serif;-webkit-tap-highlight-color:transparent;}
 html,body{min-height:100%;}
 
-body{
-    background:
-        radial-gradient(circle at 10% 10%,rgba(0,157,255,.12),transparent 28%),
-        radial-gradient(circle at 90% 90%,rgba(0,217,255,.08),transparent 30%),
-        var(--bg);
-    color:var(--text);
-    overflow-x:hidden;
-}
+body{background:radial-gradient(circle at 10% 10%,rgba(0,157,255,.12),transparent 28%),radial-gradient(circle at 90% 90%,rgba(0,217,255,.08),transparent 30%),var(--bg);color:var(--text);overflow-x:hidden;}
 
-body:before{
-    content:"";
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    background-image:
-        linear-gradient(rgba(0,157,255,.025) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(0,157,255,.025) 1px,transparent 1px);
-    background-size:40px 40px;
-    mask-image:linear-gradient(to bottom,black,transparent);
-}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(0,157,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,157,255,.025) 1px,transparent 1px);background-size:40px 40px;mask-image:linear-gradient(to bottom,black,transparent);}
 
 body.rtl,body.rtl *{font-family:Vazirmatn,Inter,Arial,sans-serif;}
-
 button,input,select{font:inherit;}
 button{cursor:pointer;}
 
 .app{display:flex;min-height:100vh;}
 
-/* SIDEBAR */
-.sidebar{
-    width:245px;flex-shrink:0;
-    background:rgba(3,12,24,.94);
-    border-right:1px solid var(--line);
-    padding:20px 14px;
-    display:flex;flex-direction:column;
-    position:fixed;left:0;top:0;bottom:0;z-index:100;
-    backdrop-filter:blur(20px);
-    box-shadow:8px 0 35px rgba(0,0,0,.18);
-}
-
+.sidebar{width:245px;flex-shrink:0;background:rgba(3,12,24,.94);border-right:1px solid var(--line);padding:20px 14px;display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;z-index:100;backdrop-filter:blur(20px);box-shadow:8px 0 35px rgba(0,0,0,.18);}
 .rtl .sidebar{left:auto;right:0;border-right:0;border-left:1px solid var(--line);box-shadow:-8px 0 35px rgba(0,0,0,.18);}
 
 .brand{display:flex;align-items:center;gap:11px;padding:5px 8px 25px;border-bottom:1px solid rgba(0,157,255,.12);margin-bottom:20px;}
@@ -74,7 +38,6 @@ button{cursor:pointer;}
 .brand-sub{color:#00bfff;font-size:9px;margin-top:4px;letter-spacing:1.5px;}
 
 .nav-title{color:#405d78;font-size:9px;font-weight:800;letter-spacing:1.5px;padding:0 10px 8px;}
-
 .nav-item{display:flex;align-items:center;gap:11px;width:100%;padding:12px;margin-bottom:5px;border-radius:11px;color:#7890a8;text-decoration:none;font-size:12px;font-weight:600;border:1px solid transparent;transition:.2s;}
 .nav-item:hover,.nav-item.active{color:#fff;background:linear-gradient(90deg,rgba(0,157,255,.18),rgba(0,157,255,.04));border-color:rgba(0,157,255,.18);box-shadow:inset 3px 0 0 var(--blue);}
 .rtl .nav-item:hover,.rtl .nav-item.active{background:linear-gradient(270deg,rgba(0,157,255,.18),rgba(0,157,255,.04));box-shadow:inset -3px 0 0 var(--blue);}
@@ -87,12 +50,10 @@ button{cursor:pointer;}
 .developer-box strong{display:block;color:#00c8ff;font-size:11px;margin-top:4px;}
 .logout{color:#ff5877;}
 
-/* MAIN */
 .main{width:calc(100% - 245px);margin-left:245px;padding:22px;min-width:0;}
 .rtl .main{margin-left:0;margin-right:245px;}
 
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:22px;}
-
 .mobile-menu{display:none;width:42px;height:42px;border:1px solid var(--line);border-radius:12px;color:#fff;background:var(--panel);font-size:23px;line-height:1;}
 
 .page-title h1{font-size:24px;font-weight:900;letter-spacing:-.5px;}
@@ -110,12 +71,11 @@ button{cursor:pointer;}
 .avatar{width:40px;height:40px;border-radius:12px;overflow:hidden;border:1px solid rgba(0,217,255,.25);box-shadow:0 0 18px rgba(0,157,255,.3);}
 .avatar img{width:100%;height:100%;object-fit:cover;display:block;}
 
-/* CARDS */
 .card{background:linear-gradient(145deg,rgba(9,28,48,.90),rgba(3,14,27,.92));border:1px solid var(--line);border-radius:17px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
 .card:after{content:"";position:absolute;top:0;left:15%;right:15%;height:1px;background:linear-gradient(90deg,transparent,#00c8ff,transparent);opacity:.5;}
 
-/* STATS */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:15px;}
+/* STATS - 5 ستونه */
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:13px;margin-bottom:15px;}
 .stat{padding:18px;min-width:0;}
 .stat-top{display:flex;justify-content:space-between;align-items:center;gap:10px;}
 .stat-label{color:#7690a9;font-size:10px;font-weight:600;}
@@ -123,8 +83,25 @@ button{cursor:pointer;}
 .stat-icon.green{background:rgba(0,232,154,.11);border-color:rgba(0,232,154,.22);color:#00e89a;}
 .stat-icon.red{background:rgba(255,69,103,.11);border-color:rgba(255,69,103,.22);color:#ff5877;}
 .stat-icon.orange{background:rgba(255,165,0,.11);border-color:rgba(255,165,0,.22);color:#ffa500;}
+.stat-icon.live{background:rgba(0,232,154,.11);border-color:rgba(0,232,154,.3);color:#00e89a;position:relative;}
+.stat-icon.live:before{content:"";position:absolute;top:4px;right:4px;width:7px;height:7px;background:#00e89a;border-radius:50%;box-shadow:0 0 8px #00e89a;animation:pulse 1.5s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
 .stat-value{font-size:25px;font-weight:900;margin-top:12px;}
 .stat-change{color:#00db9a;font-size:9px;margin-top:5px;}
+
+/* ONLINE CARD */
+.online-card{padding:18px;margin-bottom:15px;}
+.online-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+.online-head h2{font-size:14px;font-weight:800;display:flex;align-items:center;gap:8px;}
+.live-dot{width:9px;height:9px;background:#00e89a;border-radius:50%;box-shadow:0 0 10px #00e89a;animation:pulse 1.5s infinite;}
+.online-head span{color:#506d88;font-size:9px;}
+.online-list{display:flex;flex-wrap:wrap;gap:8px;}
+.online-user{background:rgba(0,232,154,.06);border:1px solid rgba(0,232,154,.2);border-radius:9px;padding:8px 12px;display:flex;align-items:center;gap:8px;font-size:10px;color:#c1e5d2;}
+.online-user .mini-dot{width:7px;height:7px;background:#00e89a;border-radius:50%;box-shadow:0 0 6px #00e89a;}
+.online-user b{color:#fff;font-weight:800;}
+.online-user small{color:#5a8575;font-size:8px;margin-left:5px;}
+.rtl .online-user small{margin-left:0;margin-right:5px;}
+.online-empty{color:#4e6b84;font-size:10px;text-align:center;padding:12px;}
 
 /* TOOLBAR */
 .toolbar{padding:16px 18px;margin-bottom:15px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;}
@@ -140,25 +117,13 @@ button{cursor:pointer;}
 .btn-add{padding:10px 16px;border-radius:10px;border:0;background:linear-gradient(135deg,#007cff,#00bfff);color:#fff;font-size:11px;font-weight:800;box-shadow:0 0 14px rgba(0,157,255,.25);display:flex;align-items:center;gap:6px;}
 .btn-add:hover{box-shadow:0 0 22px rgba(0,157,255,.45);}
 
-/* USERS LIST */
 .users-card{padding:16px;}
-
-.user-row{
-    display:grid;
-    grid-template-columns:1.3fr 1.5fr .6fr .7fr auto;
-    align-items:center;
-    gap:14px;
-    padding:14px;
-    border-radius:12px;
-    background:rgba(2,11,22,.55);
-    border:1px solid rgba(0,157,255,.08);
-    transition:.2s;
-    margin-bottom:8px;
-}
+.user-row{display:grid;grid-template-columns:1.3fr 1.5fr .6fr .7fr auto;align-items:center;gap:14px;padding:14px;border-radius:12px;background:rgba(2,11,22,.55);border:1px solid rgba(0,157,255,.08);transition:.2s;margin-bottom:8px;}
 .user-row:hover{border-color:rgba(0,157,255,.25);background:rgba(0,157,255,.04);}
 
 .user-info{display:flex;align-items:center;gap:10px;min-width:0;}
-.user-avatar{width:34px;height:34px;flex-shrink:0;border-radius:9px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(0,157,255,.2),rgba(0,217,255,.1));border:1px solid rgba(0,217,255,.25);color:#00d9ff;font-size:10px;font-weight:900;letter-spacing:1px;}
+.user-avatar{width:34px;height:34px;flex-shrink:0;border-radius:9px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(0,157,255,.2),rgba(0,217,255,.1));border:1px solid rgba(0,217,255,.25);color:#00d9ff;font-size:10px;font-weight:900;letter-spacing:1px;position:relative;}
+.user-avatar.online:after{content:"";position:absolute;bottom:-2px;right:-2px;width:10px;height:10px;background:#00e89a;border:2px solid #061322;border-radius:50%;box-shadow:0 0 6px #00e89a;}
 .user-meta{min-width:0;}
 .user-meta strong{display:block;font-size:12px;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .user-meta small{color:#4e6b84;display:block;font-size:9px;margin-top:3px;}
@@ -175,16 +140,13 @@ button{cursor:pointer;}
 .user-days{text-align:center;}
 .user-days strong{display:block;font-size:16px;font-weight:900;}
 .user-days small{color:#4e6b84;font-size:8px;display:block;margin-top:2px;}
-.days-ok{color:#00e89a;}
-.days-warning{color:#ffa500;}
-.days-danger{color:#ff4567;}
+.days-ok{color:#00e89a;}.days-warning{color:#ffa500;}.days-danger{color:#ff4567;}
 
 .badge{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:7px;font-size:8px;font-weight:800;letter-spacing:.5px;white-space:nowrap;}
 .badge.active{color:#00e89a;background:rgba(0,232,154,.08);border:1px solid rgba(0,232,154,.14);}
 .badge.off{color:#ff5274;background:rgba(255,69,103,.08);border:1px solid rgba(255,69,103,.14);}
 .badge.expired{color:#ffa500;background:rgba(255,165,0,.08);border:1px solid rgba(255,165,0,.14);}
 
-/* ACTIONS */
 .actions{display:flex;gap:5px;justify-content:flex-end;flex-wrap:wrap;}
 .btn{border:0;border-radius:8px;padding:7px 10px;font-size:9px;font-weight:800;color:#fff;transition:.2s;white-space:nowrap;}
 .btn:active{transform:scale(.95);}
@@ -194,13 +156,11 @@ button{cursor:pointer;}
 .btn-green{background:rgba(0,232,154,.08);border:1px solid rgba(0,232,154,.15);color:#00e89a;}
 .btn-orange{background:rgba(255,165,0,.08);border:1px solid rgba(255,165,0,.18);color:#ffa500;}
 
-/* EMPTY */
 .empty{padding:60px 20px;text-align:center;color:#557089;}
 .empty-icon{font-size:40px;margin-bottom:12px;opacity:.4;}
 .empty h3{font-size:13px;margin-bottom:5px;color:#7890a8;}
 .empty p{font-size:10px;}
 
-/* MODALS */
 .overlay{position:fixed;inset:0;background:rgba(0,4,10,.82);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:15px;z-index:500;}
 .overlay.show{display:flex;}
 .modal{width:100%;max-width:520px;max-height:90vh;overflow:auto;background:#061322;border:1px solid rgba(0,157,255,.3);border-radius:20px;box-shadow:0 0 50px rgba(0,157,255,.15),0 25px 70px rgba(0,0,0,.7);padding:20px;}
@@ -208,7 +168,6 @@ button{cursor:pointer;}
 .modal-head h3{font-size:14px;}
 .close{width:30px;height:30px;border:1px solid #18344c;background:#091a2c;color:#829bb1;border-radius:8px;font-size:16px;}
 
-/* FORM */
 .form-group{margin-bottom:13px;}
 .form-group label{display:block;color:#7e98b0;font-size:9px;margin-bottom:6px;font-weight:700;letter-spacing:.5px;}
 .input{width:100%;background:#020b16;color:#fff;border:1px solid #17344e;border-radius:10px;padding:11px 12px;outline:none;font-size:11px;}
@@ -219,7 +178,6 @@ button{cursor:pointer;}
 .preset:hover{background:rgba(0,157,255,.15);color:#fff;}
 .preset.active{background:linear-gradient(135deg,#007cff,#00bfff);color:#fff;border-color:transparent;}
 
-/* CONFIG */
 .config-box{background:#020b16;border:1px solid #12304a;border-radius:12px;padding:11px;margin-bottom:8px;}
 .config-top{display:flex;justify-content:space-between;gap:10px;align-items:center;}
 .config-title{font-size:10px;font-weight:800;}
@@ -231,24 +189,16 @@ button{cursor:pointer;}
 .sub-row{display:flex;gap:5px;}
 .sub-row input{min-width:0;}
 
-/* CONFIRM MODAL */
 .confirm-text{font-size:12px;color:#c1d5e8;line-height:1.7;text-align:center;padding:10px 0 20px;}
 .confirm-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 
-/* TOAST */
 .toast{position:fixed;left:50%;bottom:20px;transform:translate(-50%,100px);background:#061a2b;color:#fff;border:1px solid #007fca;border-radius:12px;padding:11px 18px;font-size:10px;font-weight:700;box-shadow:0 0 25px rgba(0,157,255,.25);z-index:999;transition:.3s;}
 .toast.show{transform:translate(-50%,0);}
 .toast.error{border-color:#ff4567;box-shadow:0 0 25px rgba(255,69,103,.25);}
 .toast.success{border-color:#00e89a;box-shadow:0 0 25px rgba(0,232,154,.25);}
 
-/* MOBILE */
-@media(max-width:980px){
-    .user-row{grid-template-columns:1fr 1fr;gap:12px;}
-    .user-days{text-align:left;}
-    .actions{grid-column:1 / -1;justify-content:stretch;}
-    .actions .btn{flex:1;}
-}
-
+@media(max-width:1100px){.stats{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:980px){.user-row{grid-template-columns:1fr 1fr;gap:12px;}.user-days{text-align:left;}.actions{grid-column:1 / -1;justify-content:stretch;}.actions .btn{flex:1;}}
 @media(max-width:900px){
     .sidebar{transform:translateX(-105%);transition:.3s;box-shadow:10px 0 40px rgba(0,0,0,.6);}
     .rtl .sidebar{transform:translateX(105%);box-shadow:-10px 0 40px rgba(0,0,0,.6);}
@@ -263,12 +213,7 @@ button{cursor:pointer;}
     .stat{padding:14px;}
     .stat-value{font-size:21px;}
 }
-
-@media(max-width:600px){
-    .user-row{grid-template-columns:1fr;}
-    .user-days{text-align:left;}
-}
-
+@media(max-width:600px){.user-row{grid-template-columns:1fr;}.user-days{text-align:left;}}
 @media(max-width:480px){
     .main{padding:10px;}
     .stats{grid-template-columns:1fr 1fr;}
@@ -364,15 +309,24 @@ button{cursor:pointer;}
         </div>
     </div>
 
-    <!-- STATS -->
+    <!-- STATS - 5 CARDS -->
     <section class="stats">
         <div class="card stat">
             <div class="stat-top">
-                <span class="stat-label" data-i18n="totalUsers">TOTAL USERS</span>
+                <span class="stat-label" data-i18n="totalUsers">TOTAL</span>
                 <span class="stat-icon">ALL</span>
             </div>
             <div class="stat-value">{{ total_users }}</div>
             <div class="stat-change" data-i18n="allAccounts">ALL ACCOUNTS</div>
+        </div>
+
+        <div class="card stat">
+            <div class="stat-top">
+                <span class="stat-label" data-i18n="onlineNow">ONLINE NOW</span>
+                <span class="stat-icon live">●</span>
+            </div>
+            <div class="stat-value" id="onlineCount" style="color:#00e89a;">{{ online_users }}</div>
+            <div class="stat-change" data-i18n="liveTraffic">LIVE TRAFFIC</div>
         </div>
 
         <div class="card stat">
@@ -395,7 +349,7 @@ button{cursor:pointer;}
 
         <div class="card stat">
             <div class="stat-top">
-                <span class="stat-label" data-i18n="usedTraffic">USED TRAFFIC</span>
+                <span class="stat-label" data-i18n="usedTraffic">USED</span>
                 <span class="stat-icon orange">GB</span>
             </div>
             <div class="stat-value" style="color:#ffa500;">
@@ -403,6 +357,20 @@ button{cursor:pointer;}
                 <small style="font-size:11px;color:#66839c;">GB</small>
             </div>
             <div class="stat-change" style="color:#ffa500;" data-i18n="totalConsumption">TOTAL CONSUMPTION</div>
+        </div>
+    </section>
+
+    <!-- ONLINE USERS LIVE PANEL -->
+    <section class="card online-card">
+        <div class="online-head">
+            <h2>
+                <span class="live-dot"></span>
+                <span data-i18n="onlineUsersTitle">Online Users (Live)</span>
+            </h2>
+            <span data-i18n="autoRefresh">AUTO-REFRESH 15s</span>
+        </div>
+        <div id="onlineList" class="online-list">
+            <div class="online-empty" data-i18n="loading">Loading...</div>
         </div>
     </section>
 
@@ -436,7 +404,7 @@ button{cursor:pointer;}
                 data-name="{{ user.name|lower }}">
 
                 <div class="user-info">
-                    <div class="user-avatar">{{ user.name[:2]|upper }}</div>
+                    <div class="user-avatar {% if user.is_online %}online{% endif %}" data-user="{{ user.name }}">{{ user.name[:2]|upper }}</div>
                     <div class="user-meta">
                         <strong>{{ user.name }}</strong>
                         <small>ID #{{ user.id }} · {{ user.created_date }}</small>
@@ -648,8 +616,10 @@ const translations = {
         community:"COMMUNITY",joinTelegram:"Join Telegram",supportDeveloper:"Support Developer",
         designedDeveloped:"DESIGNED & DEVELOPED BY",logout:"Logout",usersManagement:"Users Management",
         usersSub:"Manage all your VPN users and configurations",administrator:"Administrator",online:"ONLINE",
-        totalUsers:"TOTAL USERS",allAccounts:"ALL ACCOUNTS",activeUsers:"ACTIVE",currentlyActive:"CURRENTLY ACTIVE",
-        disabledUsers:"DISABLED",turnedOff:"TURNED OFF",usedTraffic:"USED TRAFFIC",totalConsumption:"TOTAL CONSUMPTION",
+        totalUsers:"TOTAL",allAccounts:"ALL ACCOUNTS",activeUsers:"ACTIVE",currentlyActive:"CURRENTLY ACTIVE",
+        disabledUsers:"DISABLED",turnedOff:"TURNED OFF",usedTraffic:"USED",totalConsumption:"TOTAL CONSUMPTION",
+        onlineNow:"ONLINE NOW",liveTraffic:"LIVE TRAFFIC",onlineUsersTitle:"Online Users (Live)",autoRefresh:"AUTO-REFRESH 15s",
+        loading:"Loading...",noOnline:"No users online right now",secondsAgo:"s ago",
         searchPlaceholder:"🔍 Search by username...",filterAll:"ALL",filterActive:"ACTIVE",filterDisabled:"DISABLED",filterExpired:"EXPIRED",
         createUser:"Create User",daysLeft:"days left",active:"ACTIVE",disabled:"DISABLED",expired:"EXPIRED",
         config:"Config",edit:"Edit",reset:"Reset",off:"Off",on:"On",delete:"Delete",
@@ -667,8 +637,10 @@ const translations = {
         community:"ارتباطات",joinTelegram:"عضویت در تلگرام",supportDeveloper:"پشتیبانی سازنده",
         designedDeveloped:"طراحی و توسعه توسط",logout:"خروج",usersManagement:"مدیریت کاربران",
         usersSub:"مدیریت کامل اکانت‌ها و کانفیگ‌های VPN",administrator:"مدیر",online:"آنلاین",
-        totalUsers:"کل کاربران",allAccounts:"تمام حساب‌ها",activeUsers:"فعال",currentlyActive:"در حال حاضر فعال",
-        disabledUsers:"غیرفعال",turnedOff:"خاموش شده",usedTraffic:"ترافیک مصرفی",totalConsumption:"مجموع مصرف",
+        totalUsers:"کل",allAccounts:"تمام حساب‌ها",activeUsers:"فعال",currentlyActive:"در حال حاضر فعال",
+        disabledUsers:"غیرفعال",turnedOff:"خاموش شده",usedTraffic:"مصرفی",totalConsumption:"مجموع مصرف",
+        onlineNow:"آنلاین",liveTraffic:"ترافیک زنده",onlineUsersTitle:"کاربران آنلاین (زنده)",autoRefresh:"آپدیت خودکار هر ۱۵ ثانیه",
+        loading:"در حال بارگذاری...",noOnline:"کاربری آنلاین نیست",secondsAgo:"ثانیه پیش",
         searchPlaceholder:"🔍 جستجو بر اساس نام کاربر...",filterAll:"همه",filterActive:"فعال",filterDisabled:"غیرفعال",filterExpired:"منقضی",
         createUser:"ساخت کاربر",daysLeft:"روز باقی",active:"فعال",disabled:"غیرفعال",expired:"منقضی",
         config:"کانفیگ",edit:"ویرایش",reset:"ریست",off:"خاموش",on:"روشن",delete:"حذف",
@@ -728,7 +700,6 @@ function setValue(inputId, val, btn){
     btn.classList.add('active');
 }
 
-/* FILTER */
 function setFilter(filter){
     currentFilter = filter;
     document.querySelectorAll('.filter-tab').forEach(t=>{
@@ -766,6 +737,47 @@ function filterUsers(){
         } else {
             noResults.style.display = 'none';
         }
+    }
+}
+
+/* ONLINE USERS - LIVE */
+async function refreshOnlineUsers(){
+    try{
+        const res = await fetch('/api/online_users');
+        const data = await res.json();
+
+        if(data.status !== 'success') return;
+
+        const lang = translations[currentLanguage];
+        document.getElementById('onlineCount').innerText = data.count;
+
+        const list = document.getElementById('onlineList');
+
+        if(data.count === 0){
+            list.innerHTML = `<div class="online-empty">${lang.noOnline}</div>`;
+        } else {
+            list.innerHTML = data.users.map(u=>`
+                <div class="online-user">
+                    <span class="mini-dot"></span>
+                    <b>${escapeHtml(u.name)}</b>
+                    <span>${u.used_gb} / ${u.quota_gb} GB</span>
+                    <small>${u.seconds_ago}${lang.secondsAgo}</small>
+                </div>
+            `).join('');
+        }
+
+        // Update avatar online indicator
+        const onlineNames = data.users.map(u=>u.name);
+        document.querySelectorAll('.user-avatar[data-user]').forEach(av=>{
+            if(onlineNames.includes(av.dataset.user)){
+                av.classList.add('online');
+            } else {
+                av.classList.remove('online');
+            }
+        });
+
+    } catch(err){
+        console.log('Online fetch error:', err);
     }
 }
 
@@ -838,7 +850,6 @@ async function submitEditUser(e){
     }
 }
 
-/* TOGGLE */
 async function toggleUser(id){
     try{
         const res = await fetch('/api/toggle_user/' + id, {method:'POST'});
@@ -849,7 +860,6 @@ async function toggleUser(id){
     }
 }
 
-/* CONFIRM / DELETE / RESET */
 function openConfirm(titleKey, textKey, callback){
     const lang = translations[currentLanguage];
     document.getElementById('confirmTitle').innerText = lang[titleKey] || titleKey;
@@ -890,7 +900,6 @@ function confirmReset(id){
     });
 }
 
-/* CONFIG */
 async function loadUserConfig(id){
     showToast(currentLanguage === 'fa' ? 'در حال بارگذاری...' : 'Loading...');
 
@@ -957,12 +966,13 @@ function showQR(cfg, title){
     document.getElementById('qrWrap').style.display = 'block';
 }
 
-/* CLOSE ON BG CLICK */
 document.querySelectorAll('.overlay').forEach(o=>{
     o.addEventListener('click', e=>{ if(e.target === o) o.classList.remove('show'); });
 });
 
 applyLanguage();
+refreshOnlineUsers();
+setInterval(refreshOnlineUsers, 15000);
 </script>
 
 </body>
