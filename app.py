@@ -670,6 +670,58 @@ def dashboard():
 
 
 # =========================================================
+# Users Management page
+# =========================================================
+
+@app.route("/users")
+def users_page():
+
+    if "admin" not in session:
+
+        return redirect(
+            url_for("login")
+        )
+
+    users = get_all_users()
+
+    total_gb = sum(
+        u["quota_gb"]
+        for u in users
+    )
+
+    total_used = sum(
+        u["used_bytes"]
+        for u in users
+    ) / (1024 ** 3)
+
+    active_count = sum(
+        1
+        for u in users
+        if u["enabled"] == 1
+    )
+
+    return render_template(
+        "users.html",
+
+        users=users,
+
+        total_users=len(users),
+
+        active_users=active_count,
+
+        total_gb=round(
+            total_gb,
+            2
+        ),
+
+        total_used=round(
+            total_used,
+            2
+        )
+    )
+
+
+# =========================================================
 # Settings page
 # =========================================================
 
